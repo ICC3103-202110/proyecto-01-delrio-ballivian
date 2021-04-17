@@ -17,7 +17,7 @@ from player import Player
 #    4. Check if player is dead
 
 def main():
-    print("bienvenido a este juego qlo llamado coups")
+    print("bienvenido a este juego llamado coups")
 
 if __name__== '__main__':
     main();
