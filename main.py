@@ -18,6 +18,7 @@ from player import Player
 
 def main():
     print("bienvenido a este juego llamado coups")
+    print("Yo añadi esta linea de codigo")
 
 if __name__== '__main__':
     main();
