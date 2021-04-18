@@ -2,19 +2,8 @@
 class Player:
 
     def __init__(self,name):
-        self.name = name
-        self.turn = 0
-        self.coins = 0
+        self.Player_name = name
+        self.Player_turn = 0
+        self.Player_coins = 2
+        self.still_alive = True
 
-    #metodos/funciones
-
-    def assasin(self):
-        return 0
-    def duke(self):
-        return 0
-    def abassador(self):
-        return 0
-    def captain(self):
-        return 0
-    def contessa(self):
-        return 0
