@@ -7,20 +7,20 @@ class action():
     description = ""
     block=[]
     coins_needed = 0
-    def plays(self,players,target = None):
+    def plays(self,player,target = None):
         return (False, None)
 
 class income(action):
     name = "income"
     description = "gain 1 coin"
-    def plays(self,players,target = None):
+    def plays(self,player,target = None):
         Player.coins += 1
         return True, "Succed"
 
 class foreing_aid(action):
     name = "foreing_aid"
     description = "gains 2 coins"
-    def plays(self,players,target = None):
+    def plays(self,player,target = None):
         Player.coins += 2
         return True, "Succed"
 
@@ -64,8 +64,8 @@ class coup(action):
     class duke(action):
         name = "duke"
         description = "Gain 3 gold. Blocks Foreign Aid"
-        def plays(self,players,target = None):
-            Player.coins += 3
+        def plays(self,player,target = None):
+            player.coins += 3
 
 #embajador tambien se puede bloquear
     class abassador(action):
@@ -75,7 +75,7 @@ class coup(action):
         name = "captain"
         description = "Steal 2 gold from target. Blocks Steal"
         block=["captain"]
-        def plays(self,players,target = None):
+        def plays(self,player,target = None):
             if target == None:
                 raise TargetRequired
 
@@ -87,7 +87,7 @@ class coup(action):
 
             target.coins -= steal
             if target.coins < 0: target.coins = 0
-            Player.coins += steal
+            player.coins += steal
 
             return True, "Success"
 
@@ -95,5 +95,5 @@ class coup(action):
         name = "contessa"
         description = "Blocks Assasination."
         block=["assasin"]
-        def plays(self,players,taget = None):
+        def plays(self,player,taget = None):
             raise BlockOnly
