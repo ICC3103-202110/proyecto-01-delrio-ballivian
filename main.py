@@ -1,4 +1,5 @@
 from player import Player
+from start import *
 
 
 # play order:
@@ -19,6 +20,7 @@ from player import Player
 def main():
     print("bienvenido a este juego llamado coups")
     print("Yo añadi esta linea de codigo")
-
+    start_menu = startmenu(); start_menu.start()
+    
 if __name__== '__main__':
     main();
