@@ -1,22 +1,17 @@
 #clase jugador
-
-
-from cartas import *
 class Player:
 
-    def __init__(self):
-        #self.name = name
-        self.turn = 0
+    def __init__(self, name_id, turno):
+        self.name_id = name_id
+        self.turno = turno
         self.coins = 2
-
+        self.influence = 2
         self.alive = True
-
-    def in_game(self):
-        card1=Mazo.select_card()
-        card2=Mazo.select_card()
-        self.cards_influece=[card1,card2]
-player=Player()
-print("carta 1 y carta 2",player.in_game())
-
-
-
+        self.cards = []
+        self.show = ["hidden", "hidden"] #Cartas de aqui
+    def player_state(player_list):
+        for i in range(len(player_list)):
+            if player_list[i].influence == 0:
+                player_list[i].alive = False
+            else:
+                continue
