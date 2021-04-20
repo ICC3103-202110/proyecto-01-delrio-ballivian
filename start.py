@@ -12,12 +12,12 @@ class startmenu:
             menu_panel.destroy()
             if nplayers == 3:
                 print("3 player mode selected")
-                main_panel = UI(3, 1)
-                main_panel.Interface(1)
+                main_panel = UI(3)
+                main_panel.Interface()
             elif nplayers == 4:
                 print("4 player mode selected")
-                main_panel = UI(4, 1)
-                main_panel.Interface(1)
+                main_panel = UI(4)
+                main_panel.Interface()
         #Menu Text
         tilecoup = tki.Label(menu_panel, text="COUP", font=("Times", 40, "bold"), bg="grey", fg="white")
         tilecoup.pack()
