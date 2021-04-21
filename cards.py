@@ -7,12 +7,13 @@ class Cards:
 
     def give_cards(self, player):
         cartas_actuales=len(self.deck)
-        print(self.deck, "DECK")
+        #print(self.deck, "DECK")
         carta1 = randint(0, cartas_actuales-1)
-        carta2 = randint(0, cartas_actuales-1)
+        carta2 = randint(0, cartas_actuales-2)
         dos_cartas = [self.deck[carta1], self.deck[carta2]]
 
-
+        print("carta 1 ", carta1 )
+        print("carta 2 ", carta2 )
         self.deck.pop(carta1)
         self.deck.pop(carta2)
         print("cartas jugador ", player.name_id)
@@ -29,4 +30,10 @@ jugador_2= Player("chao",1)
 print(varta.give_cards(jugador,varta))
 print(varta.give_cards(jugador_2,varta))
 print(len(varta.deck))
-"""
+
+varta=Cards()
+jugador = Player("hola",0)
+jugador_2= Player("chao",1)
+print(varta.give_cards(jugador))
+print(varta.give_cards(jugador_2))
+"""""
