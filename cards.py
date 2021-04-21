@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 from player import *
 from random import *
 
@@ -10,7 +10,7 @@ class Cards:
         cartas_actuales=len(self.deck)
         print(self.deck, "DECK")
         carta1 = randint(0, cartas_actuales-1)
-        carta2 = randint(0, cartas_actuales-1)
+        carta2 = randint(0, cartas_actuales-2)
         dos_cartas = [self.deck[carta1], self.deck[carta2]]
 
 
@@ -31,19 +31,3 @@ print(varta.give_cards(jugador,varta))
 print(varta.give_cards(jugador_2,varta))
 print(len(varta.deck))
 """
-=======
-from player import Player
-import random as rng
-class Cards:
-    def give_cards(player_list):
-        deck = ["duke", "duke", "duke", "assasin", "assasin", "assasin", 
-                "captain", "captain", "captain", "ambassador", "ambassador", "ambassador", 
-                "contessa", "contessa", "contessa", ]
-        rng.shuffle(deck)
-        print(deck, "DECK")
-        for i in range(len(player_list)):
-            print("cartas jugador ", player_list[i].name_id)
-            for j in range(2):
-                player_list[i].cards[j] = deck[i+j]
-                player_list[i].cards_0[j] = player_list[i].cards[j]
->>>>>>> eb18f2692faeecdd62207848803734ed4968a7ca
