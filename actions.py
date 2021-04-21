@@ -19,19 +19,19 @@ class Actions:
                     #preguntar otra vez quien quiere dudarle la carta al que
                     #esta contraatacando, cambialo a botones
                     dudar=int(input("ingrese el numero del jugador que quiere dudarle"))
-                    self.desafiar(player_list[0],player_list[dudar])
+                    self.desafiar(player_list[0],player_list[dudar-1])
                 elif action == "ca_p2":
                     print("Player 2 DO COUNTERACTION TO ", playern + 1)
                     dudar = int(input("ingrese el numero del jugador que quiere dudarle"))
-                    self.desafiar(player_list[1], player_list[dudar])
+                    self.desafiar(player_list[1], player_list[dudar-1])
                 elif action == "ca_p3":
                     print("Player 3 DO COUNTERACTION TO ", playern + 1)
                     dudar = int(input("ingrese el numero del jugador que quiere dudarle"))
-                    self.desafiar(player_list[2], player_list[dudar])
+                    self.desafiar(player_list[2], player_list[dudar-1])
                 elif action == "ca_p4":
                     print("Player 4 DO COUNTERACTION TO ", playern + 1)
                     dudar = int(input("ingrese el numero del jugador que quiere dudarle"))
-                    self.desafiar(player_list[3], player_list[dudar])
+                    self.desafiar(player_list[3], player_list[dudar-1])
                 elif action == "ca_none":
                     print("PASS")
                     player_list[playern].coins += 2
@@ -64,11 +64,11 @@ class Actions:
     #tienes que juntar tu lista hidden con las cartas reveladas aqui
     def quitar_carta(self,player):
         carta_a_revelar = int(input(F"{player.name_id} tus cartas son " + player.cards[0] + " y " + player.cards[1] + " 0 para matar la primera y 1 para la segunda"))
-        player.cartas_reveladas.append(player.cartas[carta_a_revelar])
+        player.cartas_reveladas.append(player.cards[carta_a_revelar])
     def desafiar(self,player,player2):
-            print("hola",player.name_id,player.cards[0], player.cards[1])
-            print("chao",player2.name_id, player2.cards[0], player2.cards[1])
-            if "embajador" in player.cards:
+            print("hola soy al que desafiaron",player.name_id,player.cards[0], player.cards[1])
+            print("chao soy el que desafio al men",player2.name_id, player2.cards[0], player2.cards[1])
+            if "duke" in player.cards:
                 # quitar 1 carta al azar a jugador desafiador
                 self.quitar_carta(player2)
                 # dar nada a jugador i
