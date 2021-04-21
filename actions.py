@@ -1,10 +1,12 @@
 from player import *
+from screen_update import *
 import tkinter as tki
 class Actions:
     def __init__(self):
         pass
     def foreingn_aid(self, player_list,playern):
         #COUNTER ACTION
+        screen_update = Screen_update(player_list)
         ca_panel = tki.Tk()
         ca_panel.title("COUNTER ACTION")
         ca_panel.geometry("300x300")
@@ -35,6 +37,7 @@ class Actions:
                 elif action == "ca_none":
                     print("PASS")
                     player_list[playern].coins += 2
+                    screen_update.info()
         #PANEL DE COUNTER ACTION
 
         ca_label = tki.Label(ca_panel, text="WHO IS COUNTERACTION?", font="Consolas 15")

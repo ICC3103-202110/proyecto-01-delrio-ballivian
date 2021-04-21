@@ -3,6 +3,7 @@ from actions import *
 from player import *
 from start import *
 from cards import *
+from screen_update import *
 import tkinter as tki
 
 
@@ -30,7 +31,7 @@ def main():
 
     #Player creation
     obj_actions=Actions()
-
+    
     if many_players == 3:
         Mazo = Cards()
         player_list=[]
@@ -53,19 +54,41 @@ def main():
             player_list[i].cards = Mazo.give_cards(player_list[i])
             print(player_list[i].cards[0],player_list[i].cards[1])
 
-
-
+    #Start infobox
+    screen_update = Screen_update(player_list)
+    
     #VER TODAS LAS CARTAS
     for i in range(len(player_list)):
             print(player_list[i].cards, "cartas jugador ", player_list[i].name_id)
-
-
+    
+    #Show players cards
+    def show_cards(player_list, player_n):
+        show = tki.Tk()
+        show.geometry("300x200")
+        def nextplayer():
+            show.destroy()
+            pass
+        
+        your_cards = str("Player " + str(player_n) + "\nYour cards:\n" + str(player_list[player_n-1].cards[0]) + " / " + str(player_list[player_n-1].cards[1]))
+        cards_show = tki.Label(show, text=(your_cards), font="times 20")
+        cards_show.pack()
+        buttom_next = tki.Button(show, text="Show next player", command = nextplayer, font="consolas 15")
+        buttom_next.pack()
+        
+        show.mainloop()
+    
+    show_cards(player_list, 1)
+    show_cards(player_list, 2)
+    show_cards(player_list, 3)
+    if many_players == 4:
+        show_cards(player_list, 4)
+    
     #Panel Creation
     global playern
     playern = 1
     main_panel = tki.Tk()
-    main_panel.title("CUOP v0.1.0")
-    main_panel.geometry("500x500")
+    main_panel.title("CUOP v0.4.2")
+    main_panel.geometry("500x200")
 
 
 
@@ -110,14 +133,16 @@ def main():
 
     #Aqui es donde el jugador realiza las acciones
     def action(action):
-        global playern #Este es el return practicamente
 
+        global playern #Este es el return practicamente
         player_panel.destroy() #This deletes the window after an action is choose
         #actions
         if action == "income":
             player_list[playern-1].coins +=1
             print("Player", playern, " do: income")
-
+            playern = next_player(many_players, playern)
+            screen_update.info()
+            
         elif action == "foreingn_aid":
             print("Player", playern, " do: foreingn_aid")
 
@@ -153,8 +178,10 @@ def main():
         #WHEN PLAYER IS DEAD
         elif action == "dead":
             print("Player is dead - No action")
+        """
         #Siguiente turno
         playern = next_player(many_players, playern)
+        """
         print(playern , "TURNO --------------------------------------------")
 
         #ACTULIZAR EL ESTADO DEL JUGADOR
@@ -164,13 +191,14 @@ def main():
             return
 
 
-        Update_info()
+        #Update_info()
 
 
 
     #PANELES DE JUGADORES AQUI -----------------------------------------------------------------------------
 
     def playerpanel(playern): #ESTE PANEL SOLO LO VE EL JUGADOR QUE TIENE EL TURNO
+        
 
         #PANEL DE JUGADA DEL JUGADOR
         global player_panel
@@ -225,7 +253,24 @@ def main():
         buttom_assassinate.grid(row = 5, column = 1)
         buttom_exchange.grid(row = 5, column = 2)
         buttom_steal.grid(row = 6, column = 1)
-
+        
+        #INFO EN PANEL JUGADOR
+        info_1 = str("PLAYER 1: \nCoins: " + str(player_list[0].coins) + " \nCards: " + player_list[0].show[0] + " " + player_list[0].show[1])
+        info_player_1 = tki.Label(player_panel, text=(info_1), fg="white", bg="black")
+        info_player_1.grid(row = 8, column = 0)
+    
+        info_2 = str("PLAYER 2: \nCoins: " + str(player_list[1].coins) + " \nCards: " + player_list[1].show[0] + " " + player_list[1].show[1])
+        info_player_2 = tki.Label(player_panel, text=(info_2), fg="white", bg="black")
+        info_player_2.grid(row = 8, column = 1)
+    
+        info_3 = str("PLAYER 3: \nCoins: " + str(player_list[2].coins) + " \nCards: " + player_list[2].show[0] + " " + player_list[2].show[1])
+        info_player_3 = tki.Label(player_panel, text=(info_3), fg="white", bg="black")
+        info_player_3.grid(row = 8, column = 2)
+    
+        if len(player_list) == 4:
+            info_4 = str("PLAYER 4: \nCoins: " + str(player_list[3].coins) + " \nCards: " + player_list[3].show[0] + " " + player_list[3].show[1])
+            info_player_4 = tki.Label(player_panel, text=(info_4), fg="white", bg="black")
+            info_player_4.grid(row = 9, column = 0)
 
         #DEBUGS EN CONSOLA
         #COINS
@@ -283,24 +328,6 @@ def main():
     nextturn = tki.Button(main_panel, text="Play Turn", font="consolas 20", command = lambda: playerpanel(playern))
     nextturn.pack()
 
-
-    #INICIALIZAR LA INFO DE LOS JUGADORES
-    info_1 = str("PLAYER 1: \nCoins: " + str(player_list[0].coins) + " \nCards: " + player_list[0].show[0] + " " + player_list[0].show[1])
-    info_player_1 = tki.Label(main_panel, text=(info_1))
-    info_player_1.pack()
-
-    info_2 = str("PLAYER 2: \nCoins: " + str(player_list[1].coins) + " \nCards: " + player_list[1].show[0] + " " + player_list[1].show[1])
-    info_player_2 = tki.Label(main_panel, text=(info_2))
-    info_player_2.pack()
-
-    info_3 = str("PLAYER 2: \nCoins: " + str(player_list[2].coins) + " \nCards: " + player_list[2].show[0] + " " + player_list[2].show[1])
-    info_player_3 = tki.Label(main_panel, text=(info_3))
-    info_player_3.pack()
-
-    if len(player_list) == 4:
-        info_4 = str("PLAYER 4: \nCoins: " + str(player_list[3].coins) + " \nCards: " + player_list[3].show[0] + " " + player_list[3].show[1])
-        info_player_4 = tki.Label(main_panel, text=(info_4))
-        info_player_4.pack()
 
     #Close
     exit_all = tki.Button(main_panel, text="Exit", command=main_panel.destroy)
