@@ -1,53 +1,21 @@
 from player import Player
 import tkinter as tki 
 class Actions:
-    def foreingn_aid(player_list,playern):
-        #COUNTER ACTION
-        ca_panel = tki.Tk()
-        ca_panel.title("COUNTER ACTION")
-        ca_panel.geometry("300x300")
-            
-        def action(action, target, playern):
-            if playern == target:
-                print("AUTO CONTRACTION BLOCKED")
-            else:
-                ca_panel.destroy()
-                if action == "ca_p1":
-                    print("Player 1 DO COUNTERACTION TO ", playern + 1)
-                elif action == "ca_p2":
-                    print("Player 2 DO COUNTERACTION TO ", playern + 1)
-                elif action == "ca_p3":
-                    print("Player 3 DO COUNTERACTION TO ", playern + 1) 
-                elif action == "ca_p4":
-                    print("Player 4 DO COUNTERACTION TO ", playern + 1) 
-                elif action == "ca_none":
-                    print("PASS")
-                    player_list[playern-1].coins += 2
-        #PANEL DE COUNTER ACTION
-        
-        ca_label = tki.Label(ca_panel, text="WHO IS COUNTERACTION?", font="Consolas 15")
-        ca_label.pack()
-        
-        #PLAYER WHO
-        
-        ca_1 = tki.Button(ca_panel, text="Player 1", font="consolas 20", command = lambda: action("ca_p1", 0, playern))
-        ca_1.pack()
-        ca_2 = tki.Button(ca_panel, text="Player 2", font="consolas 20", command = lambda: action("ca_p2", 1, playern)) 
-        ca_2.pack()
-        ca_3 = tki.Button(ca_panel, text="Player 3", font="consolas 20", command = lambda: action("ca_p3", 2, playern)) 
-        ca_3.pack()
-        
-        if len(player_list) == 4:
-            ca_4 = tki.Button(ca_panel, text="Player 4", font="consolas 20", command = lambda: action("ca_p4", 3, playern)) 
-            ca_4.pack()
-        
-        ca_none = tki.Button(ca_panel, text =" Pass ", font="consolas 20", command = lambda: action("ca_none", 10, playern))
-        ca_none.pack()
-        
-        ca_panel.mainloop()
-        
+<<<<<<< HEAD
+    def foreingn_aid(self,player_list,playern):
+
+
+
+        player_list[playern].coins += 2
+=======
+    def income(player):
+        player.coins += 1
         return True
-    
+    def foreingn_aid(player):
+        player.coins += 2
+>>>>>>> eb18f2692faeecdd62207848803734ed4968a7ca
+        return True
+    """
     def coup(player, player_list):
         if player.coins < 7:
             print("INSUFICIENTES FONDOS")
@@ -96,7 +64,7 @@ class Actions:
                 coup_4.pack()
             coup_panel.mainloop()
             return True
-        
+        """ 
         
     def coup(player, player_list):
         if player.coins < 7:
@@ -128,5 +96,22 @@ class Actions:
                 coup_4.pack()
             coup_panel.mainloop()
            
+<<<<<<< HEAD
     def golpe(): #SI EL JUGADOR TIENE 10 MONEDAS DEBE REALIZAR ESTA EJECUCION SI O SI
         return 0 
+=======
+    def golpe(): #SI EL JUGADOR TIENE 10 MONEDAS DEBE REALIZAR ESTA EJECUCION SI O SI 
+        return 0 
+class Carts:
+    def duke(player):
+        
+        return True
+    def assassin():
+        return True
+    def ambassador():
+        return True
+    def captain():
+        return True
+    def contessa():
+        return True
+>>>>>>> eb18f2692faeecdd62207848803734ed4968a7ca
