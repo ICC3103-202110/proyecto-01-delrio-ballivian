@@ -20,36 +20,22 @@ class Actions:
                     print("Player 1 DO COUNTERACTION TO ", playern + 1)
                     #preguntar otra vez quien quiere dudarle la carta al que
                     #esta contraatacando, cambialo a botones
-                    dudar=int(input("ingrese el numero del jugador que quiere dudarle, si no quiere nadie dudar"
-                                    "entonces ingrese '5'"))
-                    if dudar == 5:
-                        print("nadie dudo, prosigan jugando.")
-                    else:
-                        self.desafiar(player_list[0],player_list[dudar-1],"duke")
+                    
+                    dudar=int(input("ingrese el numero del jugador que quiere dudarle"))
+                    self.desafiar(player_list[0],player_list[dudar-1])
+                    
                 elif action == "ca_p2":
                     print("Player 2 DO COUNTERACTION TO ", playern + 1)
-                    dudar = int(input("ingrese el numero del jugador que quiere dudarle, si no quiere nadie dudar"
-                                      "entonces ingrese '5'"))
-                    if dudar == 5:
-                        print("nadie dudo prosigan jugando.")
-                    else:
-                        self.desafiar(player_list[0], player_list[dudar - 1],"duke")
+                    dudar = int(input("ingrese el numero del jugador que quiere dudarle"))
+                    self.desafiar(player_list[1], player_list[dudar-1])
                 elif action == "ca_p3":
                     print("Player 3 DO COUNTERACTION TO ", playern + 1)
-                    dudar = int(input("ingrese el numero del jugador que quiere dudarle, si no quiere nadie dudar"
-                                      "entonces ingrese '5'"))
-                    if dudar == 5:
-                        print("nadie dudo prosigan jugando.")
-                    else:
-                        self.desafiar(player_list[0], player_list[dudar - 1],"duke")
+                    dudar = int(input("ingrese el numero del jugador que quiere dudarle"))
+                    self.desafiar(player_list[2], player_list[dudar-1])
                 elif action == "ca_p4":
                     print("Player 4 DO COUNTERACTION TO ", playern + 1)
-                    dudar = int(input("ingrese el numero del jugador que quiere dudarle, si no quiere nadie dudar"
-                                      "entonces ingrese '5'"))
-                    if dudar == 5:
-                        print("nadie dudo prosigan jugando.")
-                    else:
-                        self.desafiar(player_list[0], player_list[dudar - 1],"duke")
+                    dudar = int(input("ingrese el numero del jugador que quiere dudarle"))
+                    self.desafiar(player_list[3], player_list[dudar-1])
                 elif action == "ca_none":
                     print("PASS")
                     player_list[playern].coins += 2
@@ -84,75 +70,23 @@ class Actions:
     def quitar_carta(self,player):
         carta_a_revelar = int(input(F"{player.name_id} tus cartas son " + player.cards[0] + " y " + player.cards[1] + " 0 para matar la primera y 1 para la segunda"))
         player.cartas_reveladas.append(player.cards[carta_a_revelar])
-    def desafiar(self,player,player2,name):
+    def desafiar(self,player,player2):
             print("hola soy al que desafiaron",player.name_id,player.cards[0], player.cards[1])
             print("chao soy el que desafio al men",player2.name_id, player2.cards[0], player2.cards[1])
-            if name in player.cards:
+            if "duke" in player.cards:
                 # quitar 1 carta al azar a jugador desafiador
                 self.quitar_carta(player2)
-                return(True)
                 # dar nada a jugador i
             else:
                 # quitar carta alzar a jugador j
                 self.quitar_carta(player)
-                return (False)
 
 
 
-
-
-    def tax(self,player_list,playern):
-
-        dudar = int(input("ingrese el numero del jugador que quiere dudarle, si no quiere nadie dudar"
-                          "entonces ingrese '5'\n"))
-        print("los jugadores son: ", player_list[playern-1].name_id, player_list[dudar].name_id)
-        if player_list[playern-1].name_id == player_list[dudar].name_id:
-            print("estas dentro?")
-            while player_list[playern-1].name_id == player_list[dudar].name_id:
-                dudar = int(input("ingrese el numero del jugador que quiere dudarle, si no quiere nadie dudar"
-                                  "entonces ingrese '5'\n"))
-        if dudar == 5:
-            print("nadie dudo prosigan jugando.")
-            player_list[playern-1].coins += 3
-        else:
-            veredicto = self.desafiar(player_list[playern-1], player_list[dudar],"duke")
-            if veredicto == True:
-                player_list[playern-1].coins += 3
-            else:
-                print("la jugada era falsa, la jugada no se seguira.")
-    def steal(self,player_list,playern):
-        player_steal=int(input(F"{player_list[playern-1].name_id} type de number of the player you want to steal his coins"))
-        if player_list[playern - 1].name_id == player_list[player_steal].name_id:
-            while player_list[playern - 1].name_id == player_list[player_steal].name_id:
-                player_steal = int(
-                    input(F"{player_list[playern-1].name_id} type de number of the player you want to steal his coins"))
-
-        dudar = int(input("ingrese el numero del jugador que quiere dudarle, si no quiere nadie dudar"
-                          "entonces ingrese '5'\n"))
-        if player_list[playern - 1].name_id == player_list[dudar].name_id:
-            print("estas dentro?")
-            while player_list[playern - 1].name_id == player_list[dudar].name_id:
-                dudar = int(input("ingrese el numero del jugador que quiere dudarle, si nadie quiere dudar"
-                                  "entonces ingrese '5'\n"))
-        if dudar == 5:
-            print("nadie dudo prosigan jugando.")
-            if player_list[player_steal].coins >= 2:
-                player_list[playern-1].coins += 2
-            else:
-                player_list[playern - 1].coins += 1
-        else:
-            veredicto = self.desafiar(player_list[playern - 1], player_list[dudar], "captain")
-            if veredicto == True:
-                if player_list[player_steal].coins >= 2:
-                    player_list[playern - 1].coins += 2
-                else:
-                    player_list[playern - 1].coins += 1
-            else:
-                print("la jugada era falsa, la jugada no se seguira.")
-
-
-
-
+    def tax(self,player_list):
+        pass
+    def steal(self,player_list):
+        pass
     def assassinte(self,player_list):
         pass
     def exchange(self,player_list):
@@ -164,85 +98,71 @@ class Actions:
 
 
 
-    def coup(player, player_list):
-        if player.coins < 7:
-            print("INSUFICIENTES FONDOS")
-            Actions.coup(player, player_list) #repetir WARNIRNG CON ESTA FUNCION PERO FUNCIONA :D
-            return False
-        elif player.coins >= 7:
-            player.coins -= 7
-            #MENU COUP
-            coup_panel = tki.Tk()
-            coup_panel.title("Coup")
-            coup_panel.geometry("300x300")
+    def coup(self, player, player_list):
+        screen_update = Screen_update(player_list)
+        #MENU COUP
+        coup_panel = tki.Tk()
+        coup_panel.title("Coup")
+        coup_panel.geometry("300x300")
 
-            def coup_target(player_n):
-                print("ATTACKER ",player.name_id , "TARGET ", player_n)
-                if player_list[player_n-1].alive == False: #Verifico si esta vivo
-                    print("Player attacked is OUT")
+        def coup_target(player_n, target):
+            print("ATTACKER ",player.name_id , "TARGET ", target)
+            if player_list[player_n-1].alive == False: #Verifico si esta vivo
+                print("Player attacked is OUT")
+                return(0)
+            elif player_list[player_n-1].alive == True:
+                if target == player.name_id: #verificar autoataque
+                    print("Auto Ataque no permitido")
                     return(0)
-                elif player_list[player_n-1].alive == True:
-                    if player_n == player.name_id: #verificar autoataque
-                        print("Auto Ataque no permitido")
-                        return(0)
-                    elif player_n != player.name_id -1:
-                        coup_panel.destroy()
-                        print(player_list[player_n-1].influence, " INFLUENCIA DEL ATACADO ")
-                        player_list[player_n-1].influence -=1
-                        #Check if card 1 or 2 is losed
-
-                        if player_list[player_n-1].cards[0] == "Card losed":
-                            player_list[player_n-1].cards[1] == "Card losed"
-                        else:
-                            player_list[player_n-1].cards[0] = "Card losed"
-
-
-                return 0
-
-            coup_title = tki.Label(coup_panel, text="Who to Coup?", font=("Times", 35, "bold italic"), bg="grey", fg="white")
-            coup_title.pack()
-            coup_1 = tki.Button(coup_panel, text="coup Player 1", font="consolas 20", command = lambda: coup_target(1))
-            coup_1.pack()
-            coup_2 = tki.Button(coup_panel, text="coup Player 2", font="consolas 20", command = lambda: coup_target(2))
-            coup_2.pack()
-            coup_3 = tki.Button(coup_panel, text="coup Player 3", font="consolas 20", command = lambda: coup_target(3))
-            coup_3.pack()
-            if len(player_list) == 4:
-                coup_4 = tki.Button(coup_panel, text="coup Player 4", font="consolas 20", command = lambda: coup_target(4))
-                coup_4.pack()
-            coup_panel.mainloop()
-            return True
-
-
-    def coup(player, player_list):
-        if player.coins < 7:
-            print("INSUFICIENTES FONDOS")
-            Actions.coup(player, player_list)
-            return False
-        elif player.coins >= 7:
-            player.coins -= 7
-
-            #MENU COUP
-            coup_panel = tki.Tk()
-            coup_panel.title("Coup")
-            coup_panel.geometry("300x300")
-            def coup_target(player_n):
-                coup_panel.destroy()
-                print("ATTACKER ",player.name_id , "TARGET ", player_n) #ESTO HACE NADA ACTUALMENTE
+                elif target != player.name_id:
+                    coup_panel.destroy()
+                    
+                    player_list[player_n-1].influence -=1
+                    print(player_list[player_n-1].influence, " INFLUENCIA DEL ATACADO ")
+                    #Check if card 1 or 2 is losed
+                    
+                    #Choose card to lose
+                    cardloose_select = tki.Tk()
+                    cardloose_select.title("Coup")
+                    cardloose_select.geometry("300x200")
+                    def cardloose(card): #VER BIEN PARA VER CUALES SI ESTAN PERDIDAS, ACTUALMENTE SOLO ESTAN EN player.show[] -----------------------------------
+                        cardloose_select.destroy()
+                        #Lose card 0
+                        if card == player_list[player_n-1].cards[0]:
+                            player_list[player_n-1].show[0] = player_list[player_n-1].cards[0]  #Reemplazo el show
+                        #Lose card 1
+                        elif card == player_list[player_n-1].cards[1]: 
+                            player_list[player_n-1].show[1] = player_list[player_n-1].cards[1] #Reemplazo el show
+                            print()
+                        screen_update.info()
+                        
+                    cardloose_label = tki.Label(cardloose_select, text="Select card to lose", font="times 15")
+                    cardloose_label.pack()
+                    cardname1 = str(player_list[player_n-1].cards[0])
+                    card1 = tki.Button(cardloose_select, text=(cardname1), command = lambda: cardloose(cardname1), font="consolas 12")
+                    card1.pack()
+                    cardname2 = str(player_list[player_n-1].cards[1])
+                    card2 = tki.Button(cardloose_select, text=(cardname2), command = lambda: cardloose(cardname2), font="consolas 12")
+                    card2.pack()
+                    cardloose_select.mainloop()
 
 
-            coup_title = tki.Label(coup_panel, text="Who to Coup?", font=("Times", 35, "bold italic"), bg="grey", fg="white")
-            coup_title.pack()
-            coup_1 = tki.Button(coup_panel, text="coup Player 1", font="consolas 20", command = lambda: coup_target(1))
-            coup_1.pack()
-            coup_2 = tki.Button(coup_panel, text="coup Player 2", font="consolas 20", command = lambda: coup_target(2))
-            coup_2.pack()
-            coup_3 = tki.Button(coup_panel, text="coup Player 3", font="consolas 20", command = lambda: coup_target(3))
-            coup_3.pack()
-            if len(player_list) == 4:
-                coup_4 = tki.Button(coup_panel, text="coup Player 4", font="consolas 20", command = lambda: coup_target(4))
-                coup_4.pack()
-            coup_panel.mainloop()
+            return 0
+
+        coup_title = tki.Label(coup_panel, text="Who to Coup?", font=("Times", 35, "bold italic"), bg="grey", fg="white")
+        coup_title.pack()
+        coup_1 = tki.Button(coup_panel, text="coup Player 1", font="consolas 20", command = lambda: coup_target(1, "jugador 1"))
+        coup_1.pack()
+        coup_2 = tki.Button(coup_panel, text="coup Player 2", font="consolas 20", command = lambda: coup_target(2, "jugador 2"))
+        coup_2.pack()
+        coup_3 = tki.Button(coup_panel, text="coup Player 3", font="consolas 20", command = lambda: coup_target(3, "jugador 3"))
+        coup_3.pack()
+        if len(player_list) == 4:
+            coup_4 = tki.Button(coup_panel, text="coup Player 4", font="consolas 20", command = lambda: coup_target(4, "jugador 4"))
+            coup_4.pack()
+        coup_panel.mainloop()
+        return True
+
 
     #def golpe(): #SI EL JUGADOR TIENE 10 MONEDAS DEBE REALIZAR ESTA EJECUCION SI O SI
      #   return 0

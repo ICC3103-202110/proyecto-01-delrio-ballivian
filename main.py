@@ -152,24 +152,29 @@ def main():
 
         elif action == "coup":
             print("Player", playern, " do: coup")
-
-            playern = next_player(many_players, playern) #Lo tengo que ejecutar ya que la funcion de Cuop deja de ejecutar lo que tenga abajo
-            obj_actions.coup(player_list[playern-2], player_list) #AQUI VA UN -2 DE MANERA QUE PUEDA EJECUTAR EL next_player Tras hacer un Coup
-            #LO DE ARRIBA ESTOY BUSCANDO UNA SOLUCION PARA QUE FUNCIONE DE FORMA MAS CORRECTA
+            if player_list[playern-1].coins < 7: #Verificar que tenga las monedas suficientes
+                print("INSUFICIENTES FONDOS")
+                playerpanel(playern)
+                return 0
+            elif player_list[playern-1].coins >= 7:
+                player_list[playern-1].coins -= 7
+                playern = next_player(many_players, playern) #Lo tengo que ejecutar ya que la funcion de Cuop deja de ejecutar lo que tenga abajo
+                obj_actions.coup(player_list[playern-2], player_list) #AQUI VA UN -2 DE MANERA QUE PUEDA EJECUTAR EL next_player Tras hacer un Coup
 
         #Cartas
         elif action == "tax":
-            print("Player do: tax(Duke)")
-            obj_actions.tax(player_list ,playern)
+            player_list.coins += 3
+            print("Player do: tax")
+            #obj_actions.tax(player_list ,playern-2)
         elif action == "assassinate":
-            print("Player do: assassinate(Assassins)")
-            # obj_actions.assassinate(player_list ,playern)
+            print("Player do: assassinate")
+            # obj_actions.assassinate(player_list ,playern-2)
         elif action == "exchange":
-            print("Player do: exchange(Ambassador)")
-            # obj_actions.exchange(player_list ,playern)
+            print("Player do: exchange")
+            # obj_actions.exchange(player_list ,playern-2)
         elif action == "steal":
-            print("Player do: steal(captain)")
-            obj_actions.steal(player_list ,playern)
+            print("Player do: steal")
+            # obj_actions.steal(player_list ,playern-2)
 
 
         #CHALLENGE
@@ -189,11 +194,6 @@ def main():
         if player_list[playern-1].alive == False: #auto ejecutar la funcion dead
             action("dead") #La unica manera que se me ocurrio para poder pasar turno
             return
-
-
-        #Update_info()
-
-
 
     #PANELES DE JUGADORES AQUI -----------------------------------------------------------------------------
 
@@ -270,7 +270,7 @@ def main():
         if len(player_list) == 4:
             info_4 = str("PLAYER 4: \nCoins: " + str(player_list[3].coins) + " \nCards: " + player_list[3].show[0] + " " + player_list[3].show[1])
             info_player_4 = tki.Label(player_panel, text=(info_4), fg="white", bg="black")
-            info_player_4.grid(row = 9, column = 0)
+            info_player_4.grid(row = 9, column = 1)
 
         #DEBUGS EN CONSOLA
         #COINS
