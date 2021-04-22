@@ -1,6 +1,6 @@
 import tkinter as tki 
+from screen_update import *
 from player import *
-
 class starup:
     def __init__(self, many_players):
         self.many_players = many_players
@@ -8,8 +8,7 @@ class starup:
 class startmenu:
     def __init__(self):
         self.default = 0
-    def start(self):
-        
+    def start(self, start_info):
         global many_players
         many_players = 1
         menu_panel = tki.Tk()
@@ -20,10 +19,12 @@ class startmenu:
             if nplayers == 3:
                 print("3 player mode selected")
                 many_players = 3
+                start_info.players = 3
                 return many_players
             elif nplayers == 4:
                 print("4 player mode selected")
                 many_players = 4
+                start_info.players = 4
                 return many_players    
         #Menu Text
         tilecoup = tki.Label(menu_panel, text="COUP", font=("Times", 40, "bold"), bg="grey", fg="white")
@@ -38,4 +39,4 @@ class startmenu:
         exit_all.pack()
         menu_panel.mainloop()
         
-        return 3 #ARREGLAR ESTE RETURN
+        
