@@ -20,20 +20,36 @@ class Actions:
                     print("Player 1 DO COUNTERACTION TO ", playern + 1)
                     #preguntar otra vez quien quiere dudarle la carta al que
                     #esta contraatacando, cambialo a botones
-                    dudar=int(input("ingrese el numero del jugador que quiere dudarle"))
-                    self.desafiar(player_list[0],player_list[dudar-1])
+                    dudar=int(input("ingrese el numero del jugador que quiere dudarle, si no quiere nadie dudar"
+                                    "entonces ingrese '5'"))
+                    if dudar == 5:
+                        print("nadie dudo, prosigan jugando.")
+                    else:
+                        self.desafiar(player_list[0],player_list[dudar-1],"duke")
                 elif action == "ca_p2":
                     print("Player 2 DO COUNTERACTION TO ", playern + 1)
-                    dudar = int(input("ingrese el numero del jugador que quiere dudarle"))
-                    self.desafiar(player_list[1], player_list[dudar-1])
+                    dudar = int(input("ingrese el numero del jugador que quiere dudarle, si no quiere nadie dudar"
+                                      "entonces ingrese '5'"))
+                    if dudar == 5:
+                        print("nadie dudo prosigan jugando.")
+                    else:
+                        self.desafiar(player_list[0], player_list[dudar - 1],"duke")
                 elif action == "ca_p3":
                     print("Player 3 DO COUNTERACTION TO ", playern + 1)
-                    dudar = int(input("ingrese el numero del jugador que quiere dudarle"))
-                    self.desafiar(player_list[2], player_list[dudar-1])
+                    dudar = int(input("ingrese el numero del jugador que quiere dudarle, si no quiere nadie dudar"
+                                      "entonces ingrese '5'"))
+                    if dudar == 5:
+                        print("nadie dudo prosigan jugando.")
+                    else:
+                        self.desafiar(player_list[0], player_list[dudar - 1],"duke")
                 elif action == "ca_p4":
                     print("Player 4 DO COUNTERACTION TO ", playern + 1)
-                    dudar = int(input("ingrese el numero del jugador que quiere dudarle"))
-                    self.desafiar(player_list[3], player_list[dudar-1])
+                    dudar = int(input("ingrese el numero del jugador que quiere dudarle, si no quiere nadie dudar"
+                                      "entonces ingrese '5'"))
+                    if dudar == 5:
+                        print("nadie dudo prosigan jugando.")
+                    else:
+                        self.desafiar(player_list[0], player_list[dudar - 1],"duke")
                 elif action == "ca_none":
                     print("PASS")
                     player_list[playern].coins += 2
@@ -68,23 +84,75 @@ class Actions:
     def quitar_carta(self,player):
         carta_a_revelar = int(input(F"{player.name_id} tus cartas son " + player.cards[0] + " y " + player.cards[1] + " 0 para matar la primera y 1 para la segunda"))
         player.cartas_reveladas.append(player.cards[carta_a_revelar])
-    def desafiar(self,player,player2):
+    def desafiar(self,player,player2,name):
             print("hola soy al que desafiaron",player.name_id,player.cards[0], player.cards[1])
             print("chao soy el que desafio al men",player2.name_id, player2.cards[0], player2.cards[1])
-            if "duke" in player.cards:
+            if name in player.cards:
                 # quitar 1 carta al azar a jugador desafiador
                 self.quitar_carta(player2)
+                return(True)
                 # dar nada a jugador i
             else:
                 # quitar carta alzar a jugador j
                 self.quitar_carta(player)
+                return (False)
 
 
 
-    def tax(self,player_list):
-        pass
-    def steal(self,player_list):
-        pass
+
+
+    def tax(self,player_list,playern):
+
+        dudar = int(input("ingrese el numero del jugador que quiere dudarle, si no quiere nadie dudar"
+                          "entonces ingrese '5'\n"))
+        print("los jugadores son: ", player_list[playern-1].name_id, player_list[dudar].name_id)
+        if player_list[playern-1].name_id == player_list[dudar].name_id:
+            print("estas dentro?")
+            while player_list[playern-1].name_id == player_list[dudar].name_id:
+                dudar = int(input("ingrese el numero del jugador que quiere dudarle, si no quiere nadie dudar"
+                                  "entonces ingrese '5'\n"))
+        if dudar == 5:
+            print("nadie dudo prosigan jugando.")
+            player_list[playern-1].coins += 3
+        else:
+            veredicto = self.desafiar(player_list[playern-1], player_list[dudar],"duke")
+            if veredicto == True:
+                player_list[playern-1].coins += 3
+            else:
+                print("la jugada era falsa, la jugada no se seguira.")
+    def steal(self,player_list,playern):
+        player_steal=int(input(F"{player_list[playern-1].name_id} type de number of the player you want to steal his coins"))
+        if player_list[playern - 1].name_id == player_list[player_steal].name_id:
+            while player_list[playern - 1].name_id == player_list[player_steal].name_id:
+                player_steal = int(
+                    input(F"{player_list[playern-1].name_id} type de number of the player you want to steal his coins"))
+
+        dudar = int(input("ingrese el numero del jugador que quiere dudarle, si no quiere nadie dudar"
+                          "entonces ingrese '5'\n"))
+        if player_list[playern - 1].name_id == player_list[dudar].name_id:
+            print("estas dentro?")
+            while player_list[playern - 1].name_id == player_list[dudar].name_id:
+                dudar = int(input("ingrese el numero del jugador que quiere dudarle, si nadie quiere dudar"
+                                  "entonces ingrese '5'\n"))
+        if dudar == 5:
+            print("nadie dudo prosigan jugando.")
+            if player_list[player_steal].coins >= 2:
+                player_list[playern-1].coins += 2
+            else:
+                player_list[playern - 1].coins += 1
+        else:
+            veredicto = self.desafiar(player_list[playern - 1], player_list[dudar], "captain")
+            if veredicto == True:
+                if player_list[player_steal].coins >= 2:
+                    player_list[playern - 1].coins += 2
+                else:
+                    player_list[playern - 1].coins += 1
+            else:
+                print("la jugada era falsa, la jugada no se seguira.")
+
+
+
+
     def assassinte(self,player_list):
         pass
     def exchange(self,player_list):

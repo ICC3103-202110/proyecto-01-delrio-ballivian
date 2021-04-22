@@ -32,5 +32,7 @@ class Screen_update:
         close = tki.Button(info_panel, text="Close", command=close, font="consolas 10")
         close.pack(padx=20, pady=20)
         info_panel.mainloop()
-    
-    
+
+class startinfo:
+    def __init__(self, players):
+        self.players = players
