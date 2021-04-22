@@ -1,9 +1,9 @@
 
 from actions import *
 from player import *
-from start import *
 from cards import *
 from screen_update import *
+from start import *
 import tkinter as tki
 
 
@@ -24,18 +24,19 @@ import tkinter as tki
 
 def main():
     #StartUP
-    number_start = startmenu(); N = number_start.start()
-    many_players = N
-    print(many_players, "N players")
-    #deck creations
-
-    #Player creation
+    start_info = startinfo(0)
+    start_menu = startmenu()
+    start_menu.start(start_info)
+    many_players = start_info.players
+    
+    #Action Creation
     obj_actions=Actions()
     
+    #deck creations
     if many_players == 3:
         Mazo = Cards()
         player_list=[]
-
+        #Player creation
         for i in range(many_players):
             player_list.append(Player("jugador " + str(i+1), i))
             #dos_cartas = [Cards.give_cards(player_list[i], Mazo)]
@@ -47,7 +48,7 @@ def main():
     elif many_players == 4:
         Mazo = Cards()
         player_list=[]
-
+        #Player creation
         for i in range(many_players):
             player_list.append(Player("jugador " + str(i+1), i))
             #dos_cartas = [Cards.give_cards(player_list[i], Mazo)]
