@@ -12,7 +12,7 @@ class startmenu:
         global many_players
         many_players = 1
         menu_panel = tki.Tk()
-        menu_panel.title("CUOP v0.1.0")
+        menu_panel.title("CUOP Start")
         menu_panel.geometry("500x300")
         def player_selection(nplayers):
             menu_panel.destroy()
@@ -39,4 +39,11 @@ class startmenu:
         exit_all.pack()
         menu_panel.mainloop()
         
-        
+        menu_panel = tki.Tk()
+        menu_panel.title("CUOP Start")
+        menu_panel.geometry("350x150")
+        question = tki.Label(menu_panel, text="Now player cards will show \n starting from player 1", font=("Arial", 20, "italic"), bg="white", fg="black")
+        question.pack()
+        nextpage = tki.Button(menu_panel, text="Show cards", font="consolas 18", command = menu_panel.destroy) 
+        nextpage.pack()
+        menu_panel.mainloop()

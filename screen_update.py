@@ -10,9 +10,11 @@ class Screen_update:
             
         info_panel = tki.Tk()
         info_panel.title("Player info")
-        #info_panel.geometry("250x500")
+        info_panel.geometry("250x520")
         
         #INICIALIZAR LA INFO DE LOS JUGADORES
+        info_title = tki.Label(info_panel, text="Player Status: \n", font="times 20")
+        info_title.pack()
         info_1 = str("PLAYER 1: \nCoins: " + str(self.player_list[0].coins) + " \nCards: " + self.player_list[0].show[0] + " " + self.player_list[0].show[1] + "\n")
         info_player_1 = tki.Label(info_panel, text=(info_1), font="times 15")
         info_player_1.pack()
@@ -36,3 +38,4 @@ class Screen_update:
 class startinfo:
     def __init__(self, players):
         self.players = players
+                

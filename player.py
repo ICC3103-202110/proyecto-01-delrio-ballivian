@@ -4,7 +4,7 @@ class Player:
     def __init__(self, name_id, turno):
         self.name_id = name_id
         self.turno = turno
-        self.coins = 2
+        self.coins = 8
         self.influence = 2
         self.alive = True
         self.cards = []
