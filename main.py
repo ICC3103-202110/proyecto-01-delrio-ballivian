@@ -88,7 +88,7 @@ def main():
     global playern
     playern = 1
     main_panel = tki.Tk()
-    main_panel.title("CUOP v0.6.2")
+    main_panel.title("CUOP v0.4.2")
     main_panel.geometry("500x200")
 
 
@@ -135,27 +135,20 @@ def main():
     #Aqui es donde el jugador realiza las acciones
     def action(action):
         
-        
-        
         global playern #Este es el return practicamente
-        
         player_panel.destroy() #This deletes the window after an action is choose
-        
-        
-        #actions ----------------------
+        #actions
         if action == "income":
             player_list[playern-1].coins +=1
             print("Player", playern, " do: income")
             playern = next_player(many_players, playern)
             screen_update.info()
             
-            
         elif action == "foreingn_aid":
             print("Player", playern, " do: foreingn_aid")
 
             playern = next_player(many_players, playern)
             obj_actions.foreingn_aid(player_list ,playern-2)
-
 
         elif action == "coup":
             print("Player", playern, " do: coup")
@@ -168,32 +161,19 @@ def main():
                 playern = next_player(many_players, playern) #Lo tengo que ejecutar ya que la funcion de Cuop deja de ejecutar lo que tenga abajo
                 obj_actions.coup(player_list[playern-2], player_list) #AQUI VA UN -2 DE MANERA QUE PUEDA EJECUTAR EL next_player Tras hacer un Coup
 
-
-        #Cartas ------------------
+        #Cartas
         elif action == "tax":
             print("Player do: tax(Duke)")
             playern = next_player(many_players, playern)
             obj_actions.tax(player_list ,playern-2)
-            
-            
         elif action == "assassinate":
             print("Player do: assassinate(Assassins)")
-    
-            if player_list[playern-1].coins < 3: #Verificar que tenga las monedas suficientes
-                print("INSUFICIENTES FONDOS")
-                playerpanel(playern)
-                return 0
-            elif player_list[playern-1].coins >= 3:
-                playern = next_player(many_players, playern)
-                obj_actions.assassinate(player_list[playern-2], player_list, playern-2, "assassin")
+            playern = next_player(many_players, playern)
+            obj_actions.assassinate(player_list[playern-2], player_list, playern-2, "assassin")
             # obj_actions.assassinate(player_list ,playern)
-            
-            
         elif action == "exchange":
             print("Player do: exchange(Ambassador)")
             # obj_actions.exchange(player_list ,playern)
-            
-            
         elif action == "steal":
             print("Player do: steal(captain)")
             playern = next_player(many_players, playern)
