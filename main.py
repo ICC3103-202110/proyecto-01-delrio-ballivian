@@ -134,7 +134,7 @@ def main():
 
     #Aqui es donde el jugador realiza las acciones
     def action(action):
-
+        
         global playern #Este es el return practicamente
         player_panel.destroy() #This deletes the window after an action is choose
         #actions
