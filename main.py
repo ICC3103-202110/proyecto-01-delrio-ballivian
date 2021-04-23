@@ -134,9 +134,11 @@ def main():
 
     #Aqui es donde el jugador realiza las acciones
     def action(action):
-        
+               
         global playern #Este es el return practicamente
         player_panel.destroy() #This deletes the window after an action is choose
+       
+        
         #actions
         if action == "income":
             player_list[playern-1].coins +=1
@@ -179,32 +181,28 @@ def main():
             playern = next_player(many_players, playern)
             obj_actions.steal(player_list[playern-2], player_list, playern-2, "captain")
 
-
-        #CHALLENGE
-
-
         #WHEN PLAYER IS DEAD
-        elif action == "dead":
+        if action == "dead":
             print("Player is dead - No action")
-        """
-        #Siguiente turno
-        playern = next_player(many_players, playern)
-        """
+            return 0
         print(playern , "TURNO --------------------------------------------")
+        
+        
 
-        #ACTULIZAR EL ESTADO DEL JUGADOR
-        Player.player_state(player_list)
-        if player_list[playern-1].alive == False: #auto ejecutar la funcion dead
-            action("dead") #La unica manera que se me ocurrio para poder pasar turno
-            return
+
+        
 
     #PANELES DE JUGADORES AQUI -----------------------------------------------------------------------------
 
     def playerpanel(playern): #ESTE PANEL SOLO LO VE EL JUGADOR QUE TIENE EL TURNO
-        
+        global player_panel
+        if player_list[playern-1].cards[0] == " " and player_list[playern-1].cards[1] == " ":
+            print("player is dead")
+            playern = next_player(many_players, playern)
+            player_panel.destroy()
 
         #PANEL DE JUGADA DEL JUGADOR
-        global player_panel
+        
         player_panel = tki.Toplevel(main_panel)
         player_panel.title("PLAYER")
 

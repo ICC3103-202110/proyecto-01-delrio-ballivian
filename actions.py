@@ -20,11 +20,15 @@ class Actions:
         cardloose_select = tki.Tk()
         cardloose_select.title("Coup")
         cardloose_select.geometry("300x200")
-
-        def cardloose(card): #VER BIEN PARA VER CUALES SI ESTAN PERDIDAS, ACTUALMENTE SOLO ESTAN EN player.show[] -----------------------------------
+        
+        print(name, "Card")
+        
+        def cardloose(card, name): #VER BIEN PARA VER CUALES SI ESTAN PERDIDAS, ACTUALMENTE SOLO ESTAN EN player.show[] -----------------------------------
             cardloose_select.destroy()
 
-            if(name == "duke" or name == "coup" or name == "foreingn_aid"):
+            if(name == "duke" or name == "coup" or name == "foreingn_aid" or name == "assassin"):
+                print("ENTRE AL PRIMER IF DEL CARD LOSE")
+                print(name, "Card")
                 #Lose card 0
                 if card == player.cards[0]:
                     player.show[0] = player.cards[0]  #Reemplazo el show
@@ -60,10 +64,10 @@ class Actions:
         cardloose_label = tki.Label(cardloose_select, text=("Select card to lose " + str(player.name_id)), font="times 15")
         cardloose_label.pack()
         cardname1 = str(player.cards[0])
-        card1 = tki.Button(cardloose_select, text=(cardname1), command = lambda: cardloose(cardname1), font="consolas 12")
+        card1 = tki.Button(cardloose_select, text=(cardname1), command = lambda: cardloose(cardname1, name), font="consolas 12")
         card1.pack()
         cardname2 = str(player.cards[1])
-        card2 = tki.Button(cardloose_select, text=(cardname2), command = lambda: cardloose(cardname2), font="consolas 12")
+        card2 = tki.Button(cardloose_select, text=(cardname2), command = lambda: cardloose(cardname2, name), font="consolas 12")
         card2.pack()
         cardloose_select.mainloop()
         
