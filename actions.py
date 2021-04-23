@@ -97,6 +97,10 @@ class Actions:
                 self.quitar_carta(player)
                 return (False)
 
+    def contraatacar(self,player,player2,name):
+        
+        return True
+
 
 
 
@@ -136,6 +140,8 @@ class Actions:
                                   "entonces ingrese '5'\n"))
         if dudar == 5:
             print("nadie dudo prosigan jugando.")
+            contraatacar()
+            dudar()
             if player_list[player_steal].coins >= 2:
                 player_list[playern-1].coins += 2
             else:
