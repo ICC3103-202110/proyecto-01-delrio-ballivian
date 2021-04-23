@@ -21,7 +21,7 @@ class Cards:
         print("player is cards ", player.name_id)
         return dos_cartas
 
-    def return_letter(self, player, index):
+    def return_card(self, player, index):
         self.deck.append(player.cards[index])
         player.cards.pop(index)
         card = randint(0, len(self.deck)-1)

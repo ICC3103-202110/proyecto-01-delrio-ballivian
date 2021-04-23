@@ -111,7 +111,7 @@ def main():
             print("Player", playern, " do: foreingn_aid")
 
             playern = next_player(many_players, playern)
-            obj_actions.foreingn_aid(player_list ,(playern-2),Mazo)
+            obj_actions.foreingn_aid(player_list ,playern-2,Mazo)
 
         elif action == "coup":
             print("Player", playern, " do: coup")
@@ -122,7 +122,7 @@ def main():
             elif player_list[playern-1].coins >= 7:
                 player_list[playern-1].coins -= 7
                 playern = next_player(many_players, playern)
-                obj_actions.coup(player_list[playern-2], player_list,Mazo)
+                obj_actions.coup(player_list[playern-2], player_list)
 
         #Cartas
         elif action == "tax":
