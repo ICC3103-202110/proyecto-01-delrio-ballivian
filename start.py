@@ -11,11 +11,11 @@ class startmenu:
     def start(self, start_info):
         global many_players
         many_players = 1
-        menu_panel = tki.Tk()
-        menu_panel.title("CUOP Start")
-        menu_panel.geometry("500x300")
+        panel_menu = tki.Tk()
+        panel_menu.title("CUOP Start")
+        panel_menu.geometry("500x300")
         def player_selection(nplayers):
-            menu_panel.destroy()
+            panel_menu.destroy()
             if nplayers == 3:
                 print("3 player mode selected")
                 many_players = 3
@@ -27,23 +27,23 @@ class startmenu:
                 start_info.players = 4
                 return many_players    
         #Menu Text
-        tilecoup = tki.Label(menu_panel, text="COUP", font=("Times", 40, "bold"), bg="grey", fg="white")
+        tilecoup = tki.Label(panel_menu, text="COUP", font=("Times", 40, "bold"), bg="grey", fg="white")
         tilecoup.pack()
-        question = tki.Label(menu_panel, text="How many players?", font=("Times", 20, "italic"), bg="grey", fg="white")
+        question = tki.Label(panel_menu, text="How many players?", font=("Times", 20, "italic"), bg="grey", fg="white")
         question.pack()
-        players3 = tki.Button(menu_panel, text="3 players", font="consolas 20", command = lambda: player_selection(3)) 
+        players3 = tki.Button(panel_menu, text="3 players", font="consolas 20", command = lambda: player_selection(3))
         players3.pack()
-        players4 = tki.Button(menu_panel, text="4 players", font="consolas 20", command = lambda: player_selection(4))
+        players4 = tki.Button(panel_menu, text="4 players", font="consolas 20", command = lambda: player_selection(4))
         players4.pack()
-        exit_all = tki.Button(menu_panel, text="Exit", command=menu_panel.destroy)
+        exit_all = tki.Button(panel_menu, text="Exit", command=panel_menu.destroy)
         exit_all.pack()
-        menu_panel.mainloop()
+        panel_menu.mainloop()
         
-        menu_panel = tki.Tk()
-        menu_panel.title("CUOP Start")
-        menu_panel.geometry("350x150")
-        question = tki.Label(menu_panel, text="Now player cards will show \n starting from player 1", font=("Arial", 20, "italic"), bg="white", fg="black")
+        panel_menu = tki.Tk()
+        panel_menu.title("CUOP Start")
+        panel_menu.geometry("350x150")
+        question = tki.Label(panel_menu, text="Now player cards will show \n starting from player 1", font=("Arial", 20, "italic"), bg="white", fg="black")
         question.pack()
-        nextpage = tki.Button(menu_panel, text="Show cards", font="consolas 18", command = menu_panel.destroy) 
+        nextpage = tki.Button(panel_menu, text="Show cards", font="consolas 18", command = panel_menu.destroy)
         nextpage.pack()
-        menu_panel.mainloop()
+        panel_menu.mainloop()

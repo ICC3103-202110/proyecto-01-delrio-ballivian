@@ -1,14 +1,13 @@
 #clase jugador
 class Player:
 
-    def __init__(self, name_id, turno):
+    def __init__(self, name_id, turn):
         self.name_id = name_id
-        self.turno = turno
+        self.turn = turn
         self.coins = 8
         self.influence = 2
         self.alive = True
         self.cards = []
-        self.cartas_reveladas=[]
         self.show = ["hidden", "hidden"] #Cartas de aqui
     def player_state(player_list):
         for i in range(len(player_list)):
