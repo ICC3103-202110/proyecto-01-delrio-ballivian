@@ -59,6 +59,8 @@ class Actions:
                     else:
                         player.coins -= 2
                         player_list[playern].coins += 2
+            
+                
             screen_update.info()
         
         cardloose_label = tki.Label(cardloose_select, text=("Select card to lose " + str(player.name_id)), font="times 15")
@@ -89,6 +91,101 @@ class Actions:
                 if action == "desafiar_none":
                     if name == "duke":
                         player_list[playern].coins +=3
+                        
+                    elif name == "captain":
+                        if player.coins == 1:
+                            player.coins -= 1
+                            player_list[playern].coins += 1
+                        else:
+                            player.coins -= 2
+                            player_list[playern].coins += 2
+                    
+                    print("PASS desafiar")
+                    return 0
+                elif action == "desafiar_p1":
+                    if name in player_list[playern].cards:
+
+                        # quitar 1 carta al azar a jugador desafiador
+                        self.quitar_carta(player, player_list, playern, name)
+                        # dar nada a jugador i
+                    else:
+                        # quitar carta alzar a jugador j
+                        self.quitar_carta(player_list[playern], player_list, playern, name)
+
+                elif action == "desafiar_p2":
+                    if name in player_list[playern].cards:
+
+                        # quitar 1 carta al azar a jugador desafiador
+                        self.quitar_carta(player, player_list, playern, name)
+                        # dar nada a jugador i
+                    else:
+                        # quitar carta alzar a jugador j
+                        self.quitar_carta(player_list[playern], player_list, playern, name)
+
+                elif action == "desafiar_p3":
+                    if name in player_list[playern].cards:
+
+                        # quitar 1 carta al azar a jugador desafiador
+                        self.quitar_carta(player, player_list, playern, name)
+                        # dar nada a jugador i
+                    else:
+                        # quitar carta alzar a jugador j
+                        self.quitar_carta(player_list[playern], player_list, playern, name)
+
+                elif action == "desafiar_p4":
+                    if name in player_list[playern].cards:
+
+                        # quitar 1 carta al azar a jugador desafiador
+                        self.quitar_carta(player, player_list, playern, name)
+                        # dar nada a jugador i
+                    else:
+                        # quitar carta alzar a jugador j
+                        self.quitar_carta(player_list[playern], player_list, playern, name)
+                pass
+                
+            #PLAYER WHO
+    
+            desafiar_1 = tki.Button(desafiar_panel, text="Player 1", font="consolas 20", command = lambda: action("desafiar_p1", player_list[0], playern))
+            desafiar_1.pack()
+            desafiar_2 = tki.Button(desafiar_panel, text="Player 2", font="consolas 20", command = lambda: action("desafiar_p2", player_list[1], playern))
+            desafiar_2.pack()
+            desafiar_3 = tki.Button(desafiar_panel, text="Player 3", font="consolas 20", command = lambda: action("desafiar_p3", player_list[2], playern))
+            desafiar_3.pack()
+    
+            if len(player_list) == 4:
+                desafiar_4 = tki.Button(desafiar_panel, text="Player 4", font="consolas 20", command = lambda: action("desafiar_p4", player_list[3], playern))
+                desafiar_4.pack()
+    
+            desafiar_none = tki.Button(desafiar_panel, text =" Pass ", font="consolas 20", command = lambda: action("desafiar_none", player_list[2], playern))
+            desafiar_none.pack()
+            
+            desafiar_panel.mainloop()
+            """
+    def desafiar(self,player, player_list, playern, name):
+            print(playern, "PLAYERN EN DESAFIAR---------------------")
+            #print("hola soy al que desafiaron",player.name_id,player.cards[0], player.cards[1])
+            #print("chao soy el que desafio al men",player2.name_id, player2.cards[0], player2.cards[1])
+            
+            #PANEL
+            desafiar_panel = tki.Tk()
+            desafiar_panel.geometry("300x300")
+            desafiar_label = tki.Label(desafiar_panel, text="WHO DOUBTS THIS ACTION?", font="Consolas 15")
+            desafiar_label.pack()
+            def action(action, player, playern):
+                print(playern, "PLAYERN EN ACTION DEL DESAFIAR")
+                desafiar_panel.destroy()
+                if action == "desafiar_none":
+                    if name == "duke":
+                        player_list[playern].coins +=3
+                        
+                    elif name == "captain":
+                        if player.coins == 1:
+                            player.coins -= 1
+                            player_list[playern].coins += 1
+                        else:
+                            player.coins -= 2
+                            player_list[playern].coins += 2
+                    
                     print("PASS desafiar")
                     return 0
                 elif action == "desafiar_p1":
@@ -193,6 +290,7 @@ class Actions:
                     elif name == "captain":
                         
                         pass
+                
         #PANEL DE COUNTER ACTION
 
         ca_label = tki.Label(ca_panel, text="WHO IS COUNTERACTION?", font="Consolas 15")
@@ -218,7 +316,7 @@ class Actions:
 
         return True
 
-
+"""
 
     def tax(self, player_list, playern):
         screen_update = Screen_update(player_list)
