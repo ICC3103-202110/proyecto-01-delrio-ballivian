@@ -38,4 +38,3 @@ class Screen_update:
 class startinfo:
     def __init__(self, players):
         self.players = players
-                
