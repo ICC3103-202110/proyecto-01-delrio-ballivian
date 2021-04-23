@@ -164,7 +164,8 @@ def main():
         #Cartas
         elif action == "tax":
             print("Player do: tax(Duke)")
-            obj_actions.tax(player_list ,playern)
+            playern = next_player(many_players, playern)
+            obj_actions.tax(player_list ,playern-2)
         elif action == "assassinate":
             print("Player do: assassinate(Assassins)")
             # obj_actions.assassinate(player_list ,playern)
@@ -173,7 +174,8 @@ def main():
             # obj_actions.exchange(player_list ,playern)
         elif action == "steal":
             print("Player do: steal(captain)")
-            obj_actions.steal(player_list ,playern)
+            playern = next_player(many_players, playern)
+            obj_actions.steal(player_list[playern-2], player_list, playern, "captain")
 
 
         #CHALLENGE
