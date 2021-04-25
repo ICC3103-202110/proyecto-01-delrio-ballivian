@@ -180,7 +180,7 @@ class Actions:
                             #self.counteraction(player_list[playern], player_list, playern, "foreingn_aid", Mazo)
                             #self.counteraction(player_list[playern], playerdoubt, player_list ,playern , "captain", Mazo)
                             
-                            #arreglar esta wea con urgencia------------------------------------------------------------------------|
+                            #------------------------------------------------------------------------|
                             if playerdoubt.coins == 1:
                                 playerdoubt.coins -= 1
                                 player_list[playern].coins += 1
@@ -481,54 +481,85 @@ class Actions:
         print(cards_total, "Cards total 2")
         
         
-        #exchange PANEL
-        exchange_panel = tki.Tk()
-        exchange_panel.title("Exchange")
-        exchange_panel.geometry("320x300")
+        #exchange = Cards_exchange(cards_total)
+        #exchange.exchange()
         
-        def cardselect(): #Esta wea no funca arreglar
+        #menu
+        def exchangemenu(cards_total, n):
+            exchange_panel = tki.Tk()
+            exchange_panel.title("Exchange")
+            exchange_panel.geometry("320x300")
+            
+    
+            def cardselect(selection, n): #Quitar carta de lista si fue elegida
+                print(selection, "Selection   ", n, " n")
+                selection_cards = tki.Label(exchange_panel, text=(str(player.cards)))
+                selection_cards.pack()
+                print(Mazo.deck, "El mazo")
+                if n == 0:
+                    if selection == cards_total[0]:
+                        player.cards[n] = cards_total[0] 
+                        cards_total[0] = " "
+                        
+                    elif selection == cards_total[1]:
+                        player.cards[n] = cards_total[1] 
+                        cards_total[1] = " "
         
-            #print(str(card1.get() + card2.get() + card3.get() + card3.get() + card4.get()))
-            cards_selected = tki.Label(exchange_panel, text=(card1.get() + card2.get() + card3.get() + card3.get() + card4.get())); cards_selected.pack()
-            pass
+                    elif selection == cards_total[2]:
+                        player.cards[n] = cards_total[2] 
+                        cards_total[2] = " "
         
-        exchange_label = tki.Label(exchange_panel, text="What cards to Keep?", font="Consolas 15"); exchange_label.pack()
-        """
-        ex_cards = str()
-        exchange_cards = tki.Label(exchange_panel, text=(ex_cards), font="Consolas 15"); exchange_cards.pack()
-        exchange_1 = tki.Button(exchange_panel, text="Player 1", font="consolas 20", command = lambda: cardselect("ex_c1", 0, playern, player_list, name,Mazo))
-        exchange_1.pack()
-        exchange_2 = tki.Button(exchange_panel, text="Player 2", font="consolas 20", command = lambda: cardselect("ex_c2", 1, playern, player_list, name,Mazo))
-        exchange_2.pack()
-        """
-        card1 = tki.StringVar(); card2 = tki.StringVar(); card3 = tki.StringVar(); card4 = tki.StringVar()
-        exchange_1 = tki.Checkbutton(exchange_panel, text=(str(cards_total[0])), font="times 15", variable=card1, 
-                                     onvalue=str(cards_total[0]), offvalue="no"); exchange_1.pack()
-        exchange_2 = tki.Checkbutton(exchange_panel, text=(str(cards_total[1])), font="times 15", variable=card2,
-                                     onvalue=str(cards_total[1]), offvalue="no"); exchange_2.pack()
-        exchange_3 = tki.Checkbutton(exchange_panel, text=(str(cards_total[2])), font="times 15", variable=card3,
-                                     onvalue=str(cards_total[2]), offvalue="no"); exchange_3.pack()
-        exchange_4 = tki.Checkbutton(exchange_panel, text=(str(cards_total[3])), font="times 15", variable=card4,
-                                     onvalue=str(cards_total[3]), offvalue="no"); exchange_4.pack()
+                    elif selection == cards_total[3]:
+                        player.cards[n] = cards_total[3] 
+                        cards_total[3] = " "
         
-        exchange_confirm = tki.Button(exchange_panel, text="Confirm", font="consolas 20", command = cardselect); exchange_confirm.pack()
+                    elif selection == cards_total[4]:
+                        player.cards[n] = cards_total[4] 
+                        cards_total[4] = " "
+                    
+                    print(n)
+                    exchange_panel.destroy()
+                    exchangemenu(cards_total, 1)
+                    return 0
+                elif n == 1:
+                    if selection == cards_total[0]:
+                        player.cards[n] = cards_total[0] 
+                        
+                    elif selection == cards_total[1]:
+                        player.cards[n] = cards_total[1] 
         
+                    elif selection == cards_total[2]:
+                        player.cards[n] = cards_total[2] 
         
-        #Mostrar del deck y tus cartas actuales, selectionar las que quieres mantener
-        exchange_panel.mainloop()
+                    elif selection == cards_total[3]:
+                        player.cards[n] = cards_total[3] 
         
-        """
-        card1=int(input("ingrese del 1 al 4 las cartas que quiere mantener"))
-        card2=int(input("ingrese del 1 al 4 las cartas que quiere mantener"))
-        player.cards[0] = cards_total[card1-1]
-        player.cards[1] = cards_total[card2 - 1]
-        """
-        print(player.cards)
-        return True
-
-
-
-
+                    elif selection == cards_total[4]:
+                        player.cards[n] = cards_total[4] 
+                    for i in range(3):
+                        if cards_total[i] == " ":
+                            cards_total.pop(i)
+                        else:
+                            Mazo.deck.append(cards_total[i])
+                            
+                    
+                    exchange_panel.destroy()
+                    return 0
+                    
+            exchange_cards = tki.Label(exchange_panel, text="Choose 2 cards to keep", font="Consolas 15")
+            exchange_cards.pack()
+            exchange_1 = tki.Button(exchange_panel, text=(str(cards_total[0])), font="times 15", command = lambda: cardselect(cards_total[0], n))
+            exchange_1.pack()
+            exchange_2 = tki.Button(exchange_panel, text=(str(cards_total[1])), font="times 15", command = lambda: cardselect(cards_total[1], n))
+            exchange_2.pack() 
+            exchange_3 = tki.Button(exchange_panel, text=(str(cards_total[2])), font="times 15", command = lambda: cardselect(cards_total[2], n))
+            exchange_3.pack()
+            exchange_4 = tki.Button(exchange_panel, text=(str(cards_total[3])), font="times 15", command = lambda: cardselect(cards_total[3], n))
+            exchange_4.pack() 
+            
+            exchange_panel.mainloop()
+        
+        exchangemenu(cards_total, 0)
 
 
     def coup(self, player, player_list):

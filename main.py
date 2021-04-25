@@ -34,7 +34,9 @@ def main():
 
     for i in range(len(player_list)):
             print(player_list[i].cards, "cards of player ", player_list[i].name_id)
-
+    
+    
+    
     def show_cards(player_list, player_n):
         show = tki.Tk()
         show.geometry("300x200")
@@ -59,7 +61,7 @@ def main():
     global playern
     playern = 1
     main_panel = tki.Tk()
-    main_panel.title("CUOP v0.9.0")
+    main_panel.title("CUOP v0.7.5")
     main_panel.geometry("500x200")
     
     #Turns
