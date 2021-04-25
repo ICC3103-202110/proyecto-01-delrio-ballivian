@@ -59,9 +59,10 @@ def main():
     global playern
     playern = 1
     main_panel = tki.Tk()
-    main_panel.title("CUOP v0.4.2")
+    main_panel.title("CUOP v0.9.0")
     main_panel.geometry("500x200")
-
+    
+    #Turns
     def next_player(many_players, playern):
         if many_players == 3:
 
@@ -136,7 +137,7 @@ def main():
         elif action == "exchange":
             print("Player do: exchange(Ambassador)")
             playern = next_player(many_players, playern)
-            obj_actions.exchange(player_list[playern-2], player_list, playern-2, "ambassador",Mazo)
+            obj_actions.exchange(player_list[playern-2], player_list, playern-2, "exchange",Mazo)
         elif action == "steal":
             print("Player do: steal(captain)")
             playern = next_player(many_players, playern)
@@ -145,7 +146,7 @@ def main():
         if action == "dead":
             print("Player is dead - No action")
             return 0
-        print(playern , "TURNO --------------------------------------------")
+        print(playern , "TURN --------------------------------------------")
         
         
 

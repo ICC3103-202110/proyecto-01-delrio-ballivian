@@ -13,40 +13,46 @@ class Actions:
         self.counteraction(player_list[playern], player_list, playern,"foreingn_aid",Mazo)
         return True
 
-    def remove(self,player, player_list, playern, name,Mazo,boolean):
+    def remove(self, player, player_list, playern, name):
         screen_update = Screen_update(player_list)
         cardloose_select = tki.Tk()
         cardloose_select.title("Coup")
         cardloose_select.geometry("300x200")
         
-        def cardloose(card, name,boolean):
+        def cardloose(card, name):
             cardloose_select.destroy()
 
-            if(name == "duke" or name == "coup" or name == "foreingn_aid" or name == "assassin" or name == "captain"):
-                print("hola estoy en cardloose, esta q piedes una carta, pero aun no se hace nada a quien gano :C")
-                print(player.name_id,player_list[playern].name_id, playern,name,boolean)
-                if boolean == True:
-                    if card == player.cards[0]:
-                        player.show[0] = player.cards[0]
-                        player.cards[0] = " "
-                        self.after_fucktion(player_list[playern], player, player_list, playern, name, Mazo)
-                    #Lose card 1
-                    elif card == player.cards[1]:
-                        player.show[1] = player.cards[1]
-                        player.cards[1] = " "
-                        self.after_fucktion(player_list[playern], player, player_list, playern, name, Mazo)
-                else:
-                    if card == player.cards[0]:
-                        player.show[0] = player.cards[0]
-                        player.cards[0] = " "
+            if(name == "duke" or name == "coup" or name == "foreingn_aid" or name == "assassin"):
 
-                    #Lose card 1
-                    elif card == player.cards[1]:
-                        player.show[1] = player.cards[1]
-                        player.cards[1] = " "
-
-
-
+                if card == player.cards[0]:
+                    player.show[0] = player.cards[0]
+                    player.cards[0] = " "
+                #Lose card 1
+                elif card == player.cards[1]: 
+                    player.show[1] = player.cards[1]
+                    player.cards[1] = " "
+                    
+            elif name == "captain":
+                if card == player.cards[0]:
+                    player.show[0] = player.cards[0]
+                    player.cards[0] = " "
+                    
+                    if player.coins == 1:
+                        player.coins -= 1
+                        player_list[playern].coins += 1
+                    else:
+                        player.coins -= 2
+                        player_list[playern].coins += 2
+                #Lose card 1
+                elif card == player.cards[1]: 
+                    player.show[1] = player.cards[1]
+                    player.cards[1] = " "
+                    if player.coins == 1:
+                        player.coins -= 1
+                        player_list[playern].coins += 1
+                    else:
+                        player.coins -= 2
+                        player_list[playern].coins += 2
             
                 
             screen_update.info()
@@ -54,240 +60,172 @@ class Actions:
         cardloose_label = tki.Label(cardloose_select, text=("Select card to lose " + str(player.name_id)), font="times 15")
         cardloose_label.pack()
         cardname1 = str(player.cards[0])
-        card1 = tki.Button(cardloose_select, text=(cardname1), command = lambda: cardloose(cardname1, name,boolean), font="consolas 12")
+        card1 = tki.Button(cardloose_select, text=(cardname1), command = lambda: cardloose(cardname1, name), font="consolas 12")
         card1.pack()
         cardname2 = str(player.cards[1])
-        card2 = tki.Button(cardloose_select, text=(cardname2), command = lambda: cardloose(cardname2, name,boolean), font="consolas 12")
+        card2 = tki.Button(cardloose_select, text=(cardname2), command = lambda: cardloose(cardname2, name), font="consolas 12")
         card2.pack()
         cardloose_select.mainloop()
 
-    def after_fucktion(self,playercounter, playerdoubt, player_list, playern, name, Mazo):
-        print("los datos que llegan son: ", playercounter.name_id,playerdoubt.name_id,player_list[playern].name_id,name)
-        if name == "duke":
-            player_list[playern].coins += 3
-        elif name == "foreingn_aid":
-            player_list[playern].coins += 2
-        elif name == "captain":
-            if playerdoubt.coins == 1:
-                playerdoubt.coins -= 1
-                player_list[playern].coins += 1
-            else:
-                playerdoubt.coins -= 2
-                player_list[playern].coins += 2
-        elif name == "assassin":
-            self.remove(playerdoubt, player_list, playern, name,False)
-        elif name == "ambassador":
-            print("estoy en embajador")
-            dos_cartas = Mazo.give_cards(playercounter)
-            print("what", dos_cartas, "the heck", playercounter.cards)
-            cards_total = []
-            for i in range(len(dos_cartas)):
-                cards_total.append(dos_cartas[i])
-            for i in range(len(playercounter.cards)):
-                cards_total.append(playercounter.cards[i])
-
-            card1 = int(input("ingrese del 1 al 4 las cartas que quiere mantener"))
-            card2 = int(input("ingrese del 1 al 4 las cartas que quiere mantener"))
-            playercounter.cards[0] = cards_total[card1 - 1]
-            playercounter.cards[0] = cards_total[card2 - 1]
-            print(playercounter.cards)
-
-
-
-
-
+    
     def challenge(self, playercounter, playerdoubt, player_list, playern, name,Mazo):
         print(playercounter.name_id, "EL PLAYER QUE ENTRA A CHALLENGE el counter")
-        print(playerdoubt.name_id, "EL PLAYER QUE ENTRA A CHALLENGE el target")
-        challenge_panel = tki.Tk()
-        challenge_panel.geometry("300x300")
-        challenge_label = tki.Label(challenge_panel, text="WHO DOUBTS THIS ACTION?", font="Consolas 15")
-        challenge_label.pack()
+        print(playerdoubt.name_id, "EL PLAYER QUE ENTRA A CHALLENGE el dudas")
+        challenge_panel = tki.Tk(); challenge_panel.geometry("300x300")
+        challenge_label = tki.Label(challenge_panel, text="WHO DOUBTS THIS ACTION?", font="Consolas 15"); challenge_label.pack()
         
-        
-        def action(action, playercounter, playerdoubt, playern,player_list, name,Mazo):
+        def action(action, playercounter, playerdoubt, playern, name,Mazo):
             print(playerdoubt.name_id, "Doubts  ", playercounter.name_id, "with ", action, "\ncard name: ", name)
             print(playerdoubt)
-            if playercounter == playerdoubt:
-                print("AUTO CONTRACTION BLOCKED")
+            if name == "foreingn_aid":
+                challenge_panel.destroy()
+                name = "duke" #DUKE BLOCKS FEINGN AID
+                print("DUDASTE FOREGINNASDA AID DXDXAAA")
+                if action == "challenge_none":
+                    player_list[playern].coins +=2
+                    
+                elif action == "challenge_p1":
+                    print(playerdoubt.name_id, "Este sopenco dudo challenge p1")
+                    print(playercounter.name_id, "Este sopenco counterio challenge p1, sus cartas son: ", playercounter.cards)
+                    
+                    if name in playercounter.cards:
+                        print("ESTOY DENTRO P1")
+                        index=playercounter.cards.index(name)
+                        Mazo.return_card(playercounter, index)
+                        print(playerdoubt.cards)
+                        print("cartas son",playercounter.cards)
+                        self.remove(playerdoubt, player_list, playern, name)
+    
+                    else:
+                        self.remove(playercounter, player_list, playern, name)
+    
+                elif action == "challenge_p2":
+                    print(playerdoubt.name_id, "Este sopenco dudo challenge p2")
+                    print(playercounter.name_id, "Este sopenco counterio challenge p2, sus cartas son: ", playercounter.cards)
+                    
+                    if name in playercounter.cards:
+                        print("ESTOY DENTRO P1")
+                        index = playercounter.cards.index(name)
+                        Mazo.return_card(playercounter, index)
+                        print(playerdoubt.cards)
+                        print("cartas son", playercounter.cards)
+
+
+                        self.remove(playerdoubt, player_list, playern, name)
+                    else:
+                        self.remove(playercounter, player_list, playern, name)
+    
+                elif action == "challenge_p3":
+                    print(playerdoubt.name_id, "Este sopenco dudo challenge p3")
+                    print(playercounter.name_id, "Este sopenco counterio challenge p3, sus cartas son: ", playercounter.cards)
+                    
+                    if name in playercounter.cards:
+                        print("ESTOY DENTRO P1")
+                        index = playercounter.cards.index(name)
+                        Mazo.return_card(playercounter, index)
+                        print(playerdoubt.cards)
+                        print("cartas son", playercounter.cards)
+                        self.remove(playerdoubt, player_list, playern, name)
+                    else:
+                        self.remove(playercounter, player_list, playern, name)
+    
+                elif action == "challenge_p4":
+                    if name in playercounter.cards:
+                        index = playercounter.cards.index(name)
+                        Mazo.return_card(playercounter, index)
+                        print(playerdoubt.cards)
+                        print("cartas son", playercounter.cards)
+                        self.remove(playerdoubt, player_list, playern, name)
+                    else:
+                        self.remove(playercounter, player_list, playern, name)
+                    
+            #----------------------------------------------------------
             else:
-                if name == "foreingn_aid":
-                    challenge_panel.destroy()
-                    name_card = "duke" #DUKE BLOCKS FEINGN AID
-                    print("DUDASTE FOREGINNASDA AID DXDXAAA")
-                    if action == "challenge_none":
-                        player_list[playern].coins +=2
-
-                    elif action == "challenge_p1":
-                        print(playerdoubt.name_id, "Este sopenco dudo challenge p1")
-                        print(playercounter.name_id, "Este sopenco counterio challenge p1, sus cartas son: ", playercounter.cards)
-
-                        if name_card in playercounter.cards:
-                            print("ESTOY DENTRO P1")
-                            index=playercounter.cards.index(name_card)
-                            Mazo.return_card(playercounter, index)
-                            print(playerdoubt.cards)
-                            print("cartas son",playercounter.cards)
-                            self.remove(playerdoubt, player_list, playern, name,Mazo,False)
-
+                player = playerdoubt
+                challenge_panel.destroy()
+                if action == "challenge_none":
+                    if name == "duke":
+                        player_list[playern].coins +=3
+                        
+                    elif name == "captain":
+                        if playerdoubt.coins == 1:
+                            playerdoubt.coins -= 1
+                            player_list[playern].coins += 1
                         else:
-                            self.remove(playercounter, player_list, playern, name,Mazo,False)
+                            playerdoubt.coins -= 2
+                            player_list[playern].coins += 2
+                    elif name == "assassin":
+                            self.remove(player, player_list, playern, name)
+    
+                    return 0
+                elif action == "challenge_p1":
+                    if name in player_list[playern].cards:
+                        index=player_list[playern].cards.index(name)
+                        Mazo.return_card(player_list[playern], index)
+                        print("cartas son", playercounter.cards)
 
-                    elif action == "challenge_p2":
-                        print(playerdoubt.name_id, "Este sopenco dudo challenge p2")
-                        print(playercounter.name_id, "Este sopenco counterio challenge p2, sus cartas son: ", playercounter.cards)
-
-                        if name_card in playercounter.cards:
-                            print("ESTOY DENTRO P1")
-                            index = playercounter.cards.index(name_card)
-                            Mazo.return_card(playercounter, index)
-                            print(playerdoubt.cards)
-                            print("cartas son", playercounter.cards)
-
-
-                            self.remove(playerdoubt, player_list, playern, name,Mazo,True)
-                        else:
-                            self.remove(playercounter, player_list, playern, name,Mazo,False)
-
-                    elif action == "challenge_p3":
-                        print(playerdoubt.name_id, "Este sopenco dudo challenge p3")
-                        print(playercounter.name_id, "Este sopenco counterio challenge p3, sus cartas son: ", playercounter.cards)
-
-                        if name_card in playercounter.cards:
-                            print("ESTOY DENTRO P1")
-                            index = playercounter.cards.index(name_card)
-                            Mazo.return_card(playercounter, index)
-                            print(playerdoubt.cards)
-                            print("cartas son", playercounter.cards)
-                            self.remove(playerdoubt, player_list, playern, name,Mazo,True)
-                        else:
-                            self.remove(playercounter, player_list, playern, name,Mazo,False)
-
-                    elif action == "challenge_p4":
-                        if name_card in playercounter.cards:
-                            index = playercounter.cards.index(name_card)
-                            Mazo.return_card(playercounter, index)
-                            print(playerdoubt.cards)
-                            print("cartas son", playercounter.cards)
-                            self.remove(playerdoubt, player_list, playern, name,Mazo,True)
-                        else:
-                            self.remove(playercounter, player_list, playern, name,Mazo,False)
-
-                #----------------------------------------------------------
-                else:
-
-                    player = playerdoubt
-                    challenge_panel.destroy()
-                    print("estoy en decidiendo a donde ir", player.name_id, player_list[playern].name_id,name )
-                    if action == "challenge_none":
-                        if name == "duke":
-                            player_list[playern].coins +=3
-
-                        elif name == "captain":
-
-                            #self.counteraction(player_list[playern], player_list, playern, "foreingn_aid", Mazo)
-                            self.counteraction(player_list[playern],playerdoubt,player_list,playern, "captain",Mazo)
-                            """}
-                            arreglar esta wea con urgencia------------------------------------------------------------------------|
-                            if playerdoubt.coins == 1:
-                                playerdoubt.coins -= 1
-                                player_list[playern].coins += 1
-                            else:
-                                playerdoubt.coins -= 2
-                                player_list[playern].coins += 2
-                            """
-                        elif name == "assassin":
-                                self.remove(player, player_list, playern, name,Mazo,False)
-                        elif name == "ambassador":
-                            print("estoy en embajador")
-                            dos_cartas = Mazo.give_cards(player)
-                            print("what",dos_cartas,"the heck", player.cards)
-                            cards_total = []
-                            for i in range(len(dos_cartas)):
-                                cards_total.append(dos_cartas[i])
-                            for i in range(len(player.cards)):
-                                cards_total.append(player.cards[i])
-
-                            card1 = int(input("ingrese del 1 al 4 las cartas que quiere mantener"))
-                            card2 = int(input("ingrese del 1 al 4 las cartas que quiere mantener"))
-                            player.cards[0] = cards_total[card1 - 1]
-                            player.cards[0] = cards_total[card2 - 1]
-                            print(player.cards)
-
-                        return 0
-                    elif action == "challenge_p1":
-                        if name in player_list[playern].cards:
-                            index=player_list[playern].cards.index(name)
-                            Mazo.return_card(player_list[playern], index)
-                            print("cartas son", playercounter.cards)
-
-                            print(playerdoubt.cards)
-
-                            self.remove(player, player_list, playern, name,Mazo,True)
-
-                        else:
-                            self.remove(player_list[playern], player_list, playern, name,Mazo,False)
-
-                    elif action == "challenge_p2":
-                        if name in player_list[playern].cards:
-                            index = player_list[playern].cards.index(name)
-                            Mazo.return_card(player_list[playern], index)
-                            print("cartas son", playercounter.cards)
-                            print(playerdoubt.cards)
-
-                            self.remove(player, player_list, playern, name,Mazo,True)
-                        else:
-                            self.remove(player_list[playern], player_list, playern, name,Mazo,False)
-
-                    elif action == "challenge_p3":
-                        if name in player_list[playern].cards:
-                            index = player_list[playern].cards.index(name)
-                            Mazo.return_card(player_list[playern], index)
-                            print("cartas son", playercounter.cards)
-                            print(playerdoubt.cards)
-
-                            self.remove(player, player_list, playern, name,Mazo,True)
-
-                        else:
-                            self.remove(player_list[playern], player_list, playern, name,Mazo,False)
-
-                    elif action == "challenge_p4":
-                        if name in player_list[playern].cards:
-                            index = player_list[playern].cards.index(name)
-                            Mazo.return_card(player_list[playern], index)
-                            print("cartas son", playercounter.cards)
-                            print(playerdoubt.cards)
-                            self.remove(player, player_list, playern, name,Mazo,True)
-                        else:
-                            self.remove(player_list[playern], player_list, playern, name,Mazo,False)
-                    pass
+                        print(playerdoubt.cards)
+                        self.remove(player, player_list, playern, name)
+    
+                    else:
+                        self.remove(player_list[playern], player_list, playern, name)
+    
+                elif action == "challenge_p2":
+                    if name in player_list[playern].cards:
+                        index = player_list[playern].cards.index(name)
+                        Mazo.return_card(player_list[playern], index)
+                        print("cartas son", playercounter.cards)
+                        print(playerdoubt.cards)
+                        self.remove(player, player_list, playern, name)
+                    else:
+                        self.remove(player_list[playern], player_list, playern, name)
+    
+                elif action == "challenge_p3":
+                    if name in player_list[playern].cards:
+                        index = player_list[playern].cards.index(name)
+                        Mazo.return_card(player_list[playern], index)
+                        print("cartas son", playercounter.cards)
+                        print(playerdoubt.cards)
+                        self.remove(player, player_list, playern, name)
+                    else:
+                        self.remove(player_list[playern], player_list, playern, name)
+    
+                elif action == "challenge_p4":
+                    if name in player_list[playern].cards:
+                        index = player_list[playern].cards.index(name)
+                        Mazo.return_card(player_list[playern], index)
+                        print("cartas son", playercounter.cards)
+                        print(playerdoubt.cards)
+                        self.remove(player, player_list, playern, name)
+                    else:
+                        self.remove(player_list[playern], player_list, playern, name)
+                pass
                 
         #PLAYER WHO
 
-        challenge_1 = tki.Button(challenge_panel, text="Player 1", font="consolas 20", command = lambda: action("challenge_p1", playercounter, player_list[0], playern,player_list, name,Mazo))
+        challenge_1 = tki.Button(challenge_panel, text="Player 1", font="consolas 20", command = lambda: action("challenge_p1", playercounter, player_list[0], playern, name,Mazo))
         challenge_1.pack()
-        challenge_2 = tki.Button(challenge_panel, text="Player 2", font="consolas 20", command = lambda: action("challenge_p2", playercounter, player_list[1], playern,player_list, name,Mazo))
+        challenge_2 = tki.Button(challenge_panel, text="Player 2", font="consolas 20", command = lambda: action("challenge_p2", playercounter, player_list[1], playern, name,Mazo))
         challenge_2.pack()
-        challenge_3 = tki.Button(challenge_panel, text="Player 3", font="consolas 20", command = lambda: action("challenge_p3", playercounter, player_list[2], playern,player_list, name,Mazo))
+        challenge_3 = tki.Button(challenge_panel, text="Player 3", font="consolas 20", command = lambda: action("challenge_p3", playercounter, player_list[2], playern, name,Mazo))
         challenge_3.pack()
-        print("hola como estas")
 
         if len(player_list) == 4:
-            challenge_4 = tki.Button(challenge_panel, text="Player 4", font="consolas 20", command = lambda: action("challenge_p4", playercounter, player_list[3], playern, player_list,name,Mazo))
+            challenge_4 = tki.Button(challenge_panel, text="Player 4", font="consolas 20", command = lambda: action("challenge_p4", playercounter, player_list[3], playern, player_list,Mazo))
             challenge_4.pack()
 
-        challenge_none = tki.Button(challenge_panel, text =" Pass ", font="consolas 20", command = lambda: action("challenge_none", playercounter, player_list[2], playern, player_list,name,Mazo))
+        challenge_none = tki.Button(challenge_panel, text =" Pass ", font="consolas 20", command = lambda: action("challenge_none", playercounter, player_list[0], playern, player_list,Mazo))
         challenge_none.pack()
         
         challenge_panel.mainloop()
-    def counteraction(self, player,victim_captain_or_assassins, player_list, playern, name,Mazo):
+    def counteraction(self, player, player_list, playern, name,Mazo):
 
         screen_update = Screen_update(player_list)
         ca_panel = tki.Tk()
         ca_panel.title("COUNTER ACTION")
         ca_panel.geometry("300x300")
 
-        def action(action, target, playern,victim_captain_or_assassins, player_list, name,Mazo):
+        def action(action, target, playern, player_list, name,Mazo):
             print("player action ", action, "el que recive challenge ", player_list[playern].name_id)
             if playern == target:
                 print("AUTO CONTRACTION BLOCKED")
@@ -321,16 +259,8 @@ class Actions:
                         player_list[playern].coins += 3
                         screen_update.info()
                     elif name == "captain":
-                        if target.coins == 1:
-                            target.coins -= 1
-                            player_list[playern].coins += 1
-                        else:
-                            target.coins -= 2
-                            player_list[playern].coins += 2
-                    elif name == "assassin":
-                        self.remove(target, player_list, playern, name, False)
                         
-
+                        pass
                 
         #PANEL DE COUNTER ACTION
 
@@ -339,18 +269,18 @@ class Actions:
 
         #PLAYER WHO
 
-        ca_1 = tki.Button(ca_panel, text="Player 1", font="consolas 20", command = lambda: action("ca_p1", 0, playern,victim_captain_or_assassins, player_list, name,Mazo))
+        ca_1 = tki.Button(ca_panel, text="Player 1", font="consolas 20", command = lambda: action("ca_p1", 0, playern, player_list, name,Mazo))
         ca_1.pack()
-        ca_2 = tki.Button(ca_panel, text="Player 2", font="consolas 20", command = lambda: action("ca_p2", 1, playern,victim_captain_or_assassins, player_list, name,Mazo))
+        ca_2 = tki.Button(ca_panel, text="Player 2", font="consolas 20", command = lambda: action("ca_p2", 1, playern, player_list, name,Mazo))
         ca_2.pack()
-        ca_3 = tki.Button(ca_panel, text="Player 3", font="consolas 20", command = lambda: action("ca_p3", 2, playern,victim_captain_or_assassins, player_list, name,Mazo))
+        ca_3 = tki.Button(ca_panel, text="Player 3", font="consolas 20", command = lambda: action("ca_p3", 2, playern, player_list, name,Mazo))
         ca_3.pack()
 
         if len(player_list) == 4:
-            ca_4 = tki.Button(ca_panel, text="Player 4", font="consolas 20", command = lambda: action("ca_p4", 3, playern,victim_captain_or_assassins,player_list, name,Mazo))
+            ca_4 = tki.Button(ca_panel, text="Player 4", font="consolas 20", command = lambda: action("ca_p4", 3, playern,player_list, name,Mazo))
             ca_4.pack()
 
-        ca_none = tki.Button(ca_panel, text =" Pass ", font="consolas 20", command = lambda: action("ca_none", 10, playern,victim_captain_or_assassins,player_list, name,Mazo))
+        ca_none = tki.Button(ca_panel, text =" Pass ", font="consolas 20", command = lambda: action("ca_none", 10, playern,player_list, name,Mazo))
         ca_none.pack()
 
         ca_panel.mainloop()
@@ -375,20 +305,20 @@ class Actions:
             else:
                 steal_panel.destroy()
                 if action == "steal_p1":
-                    print("Player 1 will be stolen ",player_list[playern].name_id,player_list[target].name_id)
+                    print("Player 1 DO STEAL TO ", playern + 1)
                     
-                    self.challenge(player_list[playern], player_list[target], player_list, playern, name,Mazo)
+                    self.challenge(player_list[0], player_list[0], player_list, playern, name,Mazo)
                 elif action == "steal_p2":
-                    print("Player 2 will be stolen ", playern + 1,player_list[playern].name_id,player_list[target].name_id)
+                    print("Player 2 DO STEAL TO ", playern + 1)
                     
-                    self.challenge(player_list[playern], player_list[target], player_list, playern, name,Mazo)
+                    self.challenge(player_list[1], player_list[0], player_list, playern, name,Mazo)
                 elif action == "steal_p3":
-                    print("Player 3 will be stolen ", player_list[playern].name_id,player_list[target].name_id)
+                    print("Player 3 DO STEAL TO ", playern + 1)
 
-                    self.challenge(player_list[playern], player_list[target], player_list, playern, name,Mazo)
+                    self.challenge(player_list[2], player_list[0], player_list, playern, name,Mazo)
                 elif action == "steal_p4":
-                    print("Player 4 will be stolen ", player_list[playern].name_id,player_list[target].name_id)
-                    self.challenge(player_list[playern], player_list[target], player_list, playern, name,Mazo)
+                    print("Player 4 DO STEAL TO ", playern + 1)
+                    self.challenge(player_list[3], player_list[0], player_list, playern, name,Mazo)
     
 
 
@@ -473,21 +403,64 @@ class Actions:
 
         return True
     def exchange(self,player, player_list, playern, name,Mazo):
+        
         screen_update = Screen_update(player_list)
-        print("la cartra es : ",name)
-        self.challenge( player_list[playern], player_list[playern], player_list, playern, name, Mazo)
+
+        #self.challenge(player_list[playern], player_list[playern], player_list, playern, name, Mazo) ''''''''''''''''''
+
         dos_cartas=Mazo.give_cards(player)
         print(dos_cartas,player.cards)
         cards_total=[]
         for i in range(len(dos_cartas)):
             cards_total.append(dos_cartas[i])
+        print(cards_total, "Cards total 1")
         for i in range(len(player.cards)):
             cards_total.append(player.cards[i])
-
+        print(cards_total, "Cards total 2")
+        
+        
+        #exchange PANEL
+        exchange_panel = tki.Tk()
+        exchange_panel.title("Exchange")
+        exchange_panel.geometry("320x300")
+        
+        def cardselect(): #Esta wea no funca arreglar
+        
+            #print(str(card1.get() + card2.get() + card3.get() + card3.get() + card4.get()))
+            cards_selected = tki.Label(exchange_panel, text=(card1.get() + card2.get() + card3.get() + card3.get() + card4.get())); cards_selected.pack()
+            pass
+        
+        exchange_label = tki.Label(exchange_panel, text="What cards to Keep?", font="Consolas 15"); exchange_label.pack()
+        """
+        ex_cards = str()
+        exchange_cards = tki.Label(exchange_panel, text=(ex_cards), font="Consolas 15"); exchange_cards.pack()
+        exchange_1 = tki.Button(exchange_panel, text="Player 1", font="consolas 20", command = lambda: cardselect("ex_c1", 0, playern, player_list, name,Mazo))
+        exchange_1.pack()
+        exchange_2 = tki.Button(exchange_panel, text="Player 2", font="consolas 20", command = lambda: cardselect("ex_c2", 1, playern, player_list, name,Mazo))
+        exchange_2.pack()
+        """
+        card1 = tki.StringVar(); card2 = tki.StringVar(); card3 = tki.StringVar(); card4 = tki.StringVar()
+        exchange_1 = tki.Checkbutton(exchange_panel, text=(str(cards_total[0])), font="times 15", variable=card1, 
+                                     onvalue=str(cards_total[0]), offvalue="no"); exchange_1.pack()
+        exchange_2 = tki.Checkbutton(exchange_panel, text=(str(cards_total[1])), font="times 15", variable=card2,
+                                     onvalue=str(cards_total[1]), offvalue="no"); exchange_2.pack()
+        exchange_3 = tki.Checkbutton(exchange_panel, text=(str(cards_total[2])), font="times 15", variable=card3,
+                                     onvalue=str(cards_total[2]), offvalue="no"); exchange_3.pack()
+        exchange_4 = tki.Checkbutton(exchange_panel, text=(str(cards_total[3])), font="times 15", variable=card4,
+                                     onvalue=str(cards_total[3]), offvalue="no"); exchange_4.pack()
+        
+        exchange_confirm = tki.Button(exchange_panel, text="Confirm", font="consolas 20", command = cardselect); exchange_confirm.pack()
+        
+        
+        #Mostrar del deck y tus cartas actuales, selectionar las que quieres mantener
+        exchange_panel.mainloop()
+        
+        """
         card1=int(input("ingrese del 1 al 4 las cartas que quiere mantener"))
         card2=int(input("ingrese del 1 al 4 las cartas que quiere mantener"))
-        player.cards[0]=cards_total[card1-1]
-        player.cards[0] = cards_total[card1 - 1]
+        player.cards[0] = cards_total[card1-1]
+        player.cards[1] = cards_total[card2 - 1]
+        """
         print(player.cards)
         return True
 

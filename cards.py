@@ -18,7 +18,7 @@ class Cards:
 
         self.deck.pop(card1)
         self.deck.pop(card2)
-        print("player  ", player.name_id)
+        print("player is cards ", player.name_id)
         return dos_cartas
 
     def return_card(self, player, index):
