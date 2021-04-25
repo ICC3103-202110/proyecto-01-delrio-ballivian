@@ -135,7 +135,8 @@ def main():
             obj_actions.assassinate(player_list[playern-2], player_list, playern-2, "assassin",Mazo)
         elif action == "exchange":
             print("Player do: exchange(Ambassador)")
-            obj_actions.exchange(player_list[playern-2], player_list, playern-2, "exchange",Mazo)
+            playern = next_player(many_players, playern)
+            obj_actions.exchange(player_list[playern-2], player_list, playern-2, "ambassador",Mazo)
         elif action == "steal":
             print("Player do: steal(captain)")
             playern = next_player(many_players, playern)
