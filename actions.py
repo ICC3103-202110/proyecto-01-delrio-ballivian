@@ -10,7 +10,7 @@ class Actions:
         screen_update = Screen_update(player_list)
         self.counteraction(player_list[playern], player_list, playern,"foreingn_aid",Mazo)
         return True
-
+        
     def remove(self,player, player_list, playern, name,Mazo,boolean):
         screen_update = Screen_update(player_list)
         cardloose_select = tki.Tk()
@@ -81,114 +81,111 @@ class Actions:
             
             print(playerdoubt.name_id, "Doubts  ", playercounter.name_id, "with ", action, "\ncard name: ", name)
 
-            if playercounter == playerdoubt:
-                print("AUTO CONTRACTION BLOCKED")
+            if name == "foreingn_aid":
+                challenge_panel.destroy()
+                name_card = "duke" #DUKE BLOCKS FEINGN AID
+                if action == "challenge_none":
+                    player_list[playern].coins +=2
+
+                elif action == "challenge_p1":
+                    if name_card in playercounter.cards:
+                        index=playercounter.cards.index(name_card)
+                        Mazo.return_card(playercounter, index)
+                        self.remove(playerdoubt, player_list, playern, name,Mazo,False)
+
+                    else:
+                        self.remove(playercounter, player_list, playern, name,Mazo,False)
+
+                elif action == "challenge_p2":
+                    if name_card in playercounter.cards:
+                        index = playercounter.cards.index(name_card)
+                        Mazo.return_card(playercounter, index)
+
+                        self.remove(playerdoubt, player_list, playern, name,Mazo,True)
+                    else:
+                        self.remove(playercounter, player_list, playern, name,Mazo,False)
+
+                elif action == "challenge_p3":
+                    if name_card in playercounter.cards:
+                        index = playercounter.cards.index(name_card)
+                        Mazo.return_card(playercounter, index)
+                        self.remove(playerdoubt, player_list, playern, name,Mazo,True)
+                    else:
+                        self.remove(playercounter, player_list, playern, name,Mazo,False)
+
+                elif action == "challenge_p4":
+                    if name_card in playercounter.cards:
+                        index = playercounter.cards.index(name_card)
+                        Mazo.return_card(playercounter, index)
+                        self.remove(playerdoubt, player_list, playern, name,Mazo,True)
+                    else:
+                        self.remove(playercounter, player_list, playern, name,Mazo,False)
+
+            #----------------------------------------------------------
             else:
-                if name == "foreingn_aid":
-                    challenge_panel.destroy()
-                    name_card = "duke" #DUKE BLOCKS FEINGN AID
-                    if action == "challenge_none":
-                        player_list[playern].coins +=2
 
-                    elif action == "challenge_p1":
-                        if name_card in playercounter.cards:
-                            index=playercounter.cards.index(name_card)
-                            Mazo.return_card(playercounter, index)
-                            self.remove(playerdoubt, player_list, playern, name,Mazo,False)
+                player = playerdoubt
+                challenge_panel.destroy()
+                if action == "challenge_none":
+                    if name == "duke":
+                        player_list[playern].coins +=3
 
+                    elif name == "captain":
+
+                        #self.counteraction(player_list[playern], player_list, playern, "foreingn_aid", Mazo)
+                        #self.counteraction(player_list[playern], playerdoubt, player_list ,playern , "captain", Mazo)
+                        
+                        #------------------------------------------------------------------------|
+                        if playercounter.coins == 1:
+                            playercounter.coins -= 1
+                            player_list[playern].coins += 1
                         else:
-                            self.remove(playercounter, player_list, playern, name,Mazo,False)
+                            playercounter.coins -= 2
+                            player_list[playern].coins += 2
+                        
+                    elif name == "assassin":
+                        self.remove(player, player_list, playern, name,Mazo,False)
+                    elif name == "ambassador":
+                        self.exchange(player, player_list, playern, name,Mazo)
+                        
+                    return 0
+                
+                elif action == "challenge_p1":
+                    if name in player_list[playern].cards:
+                        index=player_list[playern].cards.index(name)
+                        Mazo.return_card(player_list[playern], index)
+                        self.remove(player, player_list, playern, name,Mazo,True)
 
-                    elif action == "challenge_p2":
-                        if name_card in playercounter.cards:
-                            index = playercounter.cards.index(name_card)
-                            Mazo.return_card(playercounter, index)
+                    else:
+                        self.remove(player_list[playern], player_list, playern, name,Mazo,False)
 
-                            self.remove(playerdoubt, player_list, playern, name,Mazo,True)
-                        else:
-                            self.remove(playercounter, player_list, playern, name,Mazo,False)
+                elif action == "challenge_p2":
+                    if name in player_list[playern].cards:
+                        index = player_list[playern].cards.index(name)
+                        Mazo.return_card(player_list[playern], index)
+                        self.remove(player, player_list, playern, name,Mazo,True)
+                        
+                    else:
+                        self.remove(player_list[playern], player_list, playern, name,Mazo,False)
 
-                    elif action == "challenge_p3":
-                        if name_card in playercounter.cards:
-                            index = playercounter.cards.index(name_card)
-                            Mazo.return_card(playercounter, index)
-                            self.remove(playerdoubt, player_list, playern, name,Mazo,True)
-                        else:
-                            self.remove(playercounter, player_list, playern, name,Mazo,False)
+                elif action == "challenge_p3":
+                    if name in player_list[playern].cards:
+                        index = player_list[playern].cards.index(name)
+                        Mazo.return_card(player_list[playern], index)
+                        self.remove(player, player_list, playern, name,Mazo,True)
 
-                    elif action == "challenge_p4":
-                        if name_card in playercounter.cards:
-                            index = playercounter.cards.index(name_card)
-                            Mazo.return_card(playercounter, index)
-                            self.remove(playerdoubt, player_list, playern, name,Mazo,True)
-                        else:
-                            self.remove(playercounter, player_list, playern, name,Mazo,False)
+                    else:
+                        self.remove(player_list[playern], player_list, playern, name,Mazo,False)
 
-                #----------------------------------------------------------
-                else:
-
-                    player = playerdoubt
-                    challenge_panel.destroy()
-                    if action == "challenge_none":
-                        if name == "duke":
-                            player_list[playern].coins +=3
-
-                        elif name == "captain":
-
-                            #self.counteraction(player_list[playern], player_list, playern, "foreingn_aid", Mazo)
-                            #self.counteraction(player_list[playern], playerdoubt, player_list ,playern , "captain", Mazo)
-                            
-                            #------------------------------------------------------------------------|
-                            if playerdoubt.coins == 1:
-                                playerdoubt.coins -= 1
-                                player_list[playern].coins += 1
-                            else:
-                                playerdoubt.coins -= 2
-                                player_list[playern].coins += 2
-                            
-                        elif name == "assassin":
-                            self.remove(player, player_list, playern, name,Mazo,False)
-                        elif name == "ambassador":
-                            self.exchange(player, player_list, playern, name,Mazo)
-                            
-                        return 0
-                    
-                    elif action == "challenge_p1":
-                        if name in player_list[playern].cards:
-                            index=player_list[playern].cards.index(name)
-                            Mazo.return_card(player_list[playern], index)
-                            self.remove(player, player_list, playern, name,Mazo,True)
-
-                        else:
-                            self.remove(player_list[playern], player_list, playern, name,Mazo,False)
-
-                    elif action == "challenge_p2":
-                        if name in player_list[playern].cards:
-                            index = player_list[playern].cards.index(name)
-                            Mazo.return_card(player_list[playern], index)
-                            self.remove(player, player_list, playern, name,Mazo,True)
-                            
-                        else:
-                            self.remove(player_list[playern], player_list, playern, name,Mazo,False)
-
-                    elif action == "challenge_p3":
-                        if name in player_list[playern].cards:
-                            index = player_list[playern].cards.index(name)
-                            Mazo.return_card(player_list[playern], index)
-                            self.remove(player, player_list, playern, name,Mazo,True)
-
-                        else:
-                            self.remove(player_list[playern], player_list, playern, name,Mazo,False)
-
-                    elif action == "challenge_p4":
-                        if name in player_list[playern].cards:
-                            index = player_list[playern].cards.index(name)
-                            Mazo.return_card(player_list[playern], index)
-                            self.remove(player, player_list, playern, name,Mazo,True)
-                            
-                        else:
-                            self.remove(player_list[playern], player_list, playern, name,Mazo,False)
-                    pass
+                elif action == "challenge_p4":
+                    if name in player_list[playern].cards:
+                        index = player_list[playern].cards.index(name)
+                        Mazo.return_card(player_list[playern], index)
+                        self.remove(player, player_list, playern, name,Mazo,True)
+                        
+                    else:
+                        self.remove(player_list[playern], player_list, playern, name,Mazo,False)
+                pass
                 
         #PLAYER WHO
 
@@ -259,7 +256,7 @@ class Actions:
                 
         #PANEL DE COUNTER ACTION
 
-        ca_label = tki.Label(ca_panel, text="WHO IS COUNTERACTION?", font="Consolas 15")
+        ca_label = tki.Label(ca_panel, text="WHO IS GOING TO COUNTERACTION?", font="Consolas 15")
         ca_label.pack()
 
         #PLAYER WHO
@@ -490,7 +487,7 @@ class Actions:
         exchangemenu(cards_total, 0)
 
 
-    def coup(self, player, player_list):
+    def coup(self, player, player_list, Mazo):
         screen_update = Screen_update(player_list)
 
         coup_panel = tki.Tk()
@@ -512,7 +509,7 @@ class Actions:
                     
                     player_list[playern].influence -=1
                     print(player_list[playern].influence, " INFLUENCE OF THE ATTACK ")
-                    self.remove(player_list[playern], player_list, playern, "coup", False)
+                    self.remove(player_list[playern], player_list, playern, "coup", Mazo, False)
 
 
             return 0

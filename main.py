@@ -1,4 +1,4 @@
-
+from sys import exit
 from actions import *
 from player import *
 from cards import *
@@ -114,7 +114,7 @@ def main():
             elif player_list[playern-1].coins >= 7:
                 player_list[playern-1].coins -= 7
                 playern = next_player(many_players, playern)
-                obj_actions.coup(player_list[playern-2], player_list)
+                obj_actions.coup(player_list[playern-2], player_list, Mazo)
 
         #Cartas
         elif action == "tax":
@@ -143,21 +143,30 @@ def main():
 
         if action == "dead":
             print("Player is dead - No action")
+            playern = next_player(many_players, playern)
             return 0
         print(playern , "TURN")
         
-        
-
-
-        
-
-
     def playerpanel(playern):
         global player_panel
         if player_list[playern-1].cards[0] == " " and player_list[playern-1].cards[1] == " ":
             print("player is dead")
+            player_list[playern-1].alive = False
+            action("dead")
             playern = next_player(many_players, playern)
             player_panel.destroy()
+        #Win Condition
+        win = []
+        for i in range(many_players-1):
+            if player_list[i].alive == True:
+                win.append(player_list[i])
+            elif player_list[i].alive == False:
+                continue
+        if len(win) == 1:
+            print(win[0].name_id, "WON THE GAME!")
+            main_panel.destroy()
+            exit (0)
+            return(0)
         
         player_panel = tki.Toplevel(main_panel)
         player_panel.title("PLAYER")
