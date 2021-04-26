@@ -27,13 +27,6 @@ class Cards:
             elif aux2 == i and contador2==0:
                 self.deck.remove(i)
                 contador2 = contador2 + 1
-
-
-        print(len(self.deck), "LEN deck post")
-        
-        print(self.deck, "DECK POS POP")
-        
-        print("player is cards ", player.name_id)
         return dos_cartas
 
     def return_card(self, player, index):

@@ -20,7 +20,7 @@ def main():
         for i in range(many_players):
             player_list.append(Player("player " + str(i+1), i))
             player_list[i].cards = Mazo.give_cards(player_list[i])
-            print(player_list[i].cards[0],player_list[i].cards[1])
+
 
     elif many_players == 4:
         Mazo = Cards()
@@ -28,14 +28,9 @@ def main():
         for i in range(many_players):
             player_list.append(Player("player " + str(i+1), i))
             player_list[i].cards = Mazo.give_cards(player_list[i])
-            print(player_list[i].cards[0],player_list[i].cards[1])
+
 
     screen_update = Screen_update(player_list)
-
-    for i in range(len(player_list)):
-            print(player_list[i].cards, "cards of player ", player_list[i].name_id)
-    
-    
     
     def show_cards(player_list, player_n):
         show = tki.Tk()
@@ -58,12 +53,6 @@ def main():
     if many_players == 4:
         show_cards(player_list, 4)
 
-    global playern
-    playern = 1
-    main_panel = tki.Tk()
-    main_panel.title("CUOP v1.0.0")
-    main_panel.geometry("500x200")
-    
     #Turns
     def next_player(many_players, playern):
         if many_players == 3:
@@ -129,26 +118,33 @@ def main():
 
         #Cartas
         elif action == "tax":
-            print("Player do: tax(Duke)")
+            print("Player do: tax (Duke)")
             playern = next_player(many_players, playern)
             obj_actions.tax(player_list ,playern-2,Mazo)
         elif action == "assassinate":
-            print("Player do: assassinate(Assassins)")
-            playern = next_player(many_players, playern)
-            obj_actions.assassinate(player_list[playern-2], player_list, playern-2, "assassin",Mazo)
+            print("Player do: assassinate (Assassins)")
+            if player_list[playern-1].coins < 3:
+                print("insufficient funds")
+                playerpanel(playern)
+                return 0
+            elif player_list[playern-1].coins >= 3:
+                player_list[playern-1].coins -= 7
+                playern = next_player(many_players, playern)
+                playern = next_player(many_players, playern)
+                obj_actions.assassinate(player_list[playern-2], player_list, playern-2, "assassin",Mazo)
         elif action == "exchange":
-            print("Player do: exchange(Ambassador)")
+            print("Player do: exchange (Ambassador)")
             playern = next_player(many_players, playern)
             obj_actions.exchange1(player_list[playern-2], player_list, playern-2, "ambassador",Mazo)
         elif action == "steal":
-            print("Player do: steal(captain)")
+            print("Player do: steal (captain)")
             playern = next_player(many_players, playern)
             obj_actions.steal(player_list[playern-2], player_list, playern-2, "captain",Mazo)
 
         if action == "dead":
             print("Player is dead - No action")
             return 0
-        print(playern , "TURN --------------------------------------------")
+        print(playern , "TURN")
         
         
 
@@ -231,32 +227,14 @@ def main():
             info_4 = str("PLAYER 4: \nCoins: " + str(player_list[3].coins) + " \nCards: " + player_list[3].show[0] + " " + player_list[3].show[1])
             info_player_4 = tki.Label(player_panel, text=(info_4), fg="white", bg="black")
             info_player_4.grid(row = 9, column = 1)
-
-        #DEBUGS EN CONSOLA
-        #COINS
-        print(player_list[0].coins , "INCOME DEL JUGADOR 1", player_list[0].name_id)
-        print(player_list[1].coins , "INCOME DEL JUGADOR 2", player_list[1].name_id)
-        print(player_list[2].coins , "INCOME DEL JUGADOR 3", player_list[2].name_id)
-        print()
-
-        #INFLUENCE
-        print(player_list[0].influence , "influence DEL JUGADOR 1", player_list[0].name_id)
-        print(player_list[1].influence , "influence DEL JUGADOR 2", player_list[1].name_id)
-        print(player_list[2].influence , "influence DEL JUGADOR 3", player_list[2].name_id)
-        print()
-
-        #ALIVE
-        print(player_list[0].alive , "alive DEL JUGADOR 1", player_list[0].name_id)
-        print(player_list[1].alive , "alive DEL JUGADOR 2", player_list[1].name_id)
-        print(player_list[2].alive , "alive DEL JUGADOR 3", player_list[2].name_id)
-        print()
-
-        #CARDS
-        print(player_list[0].cards , "alive DEL JUGADOR 1", player_list[0].name_id)
-        print(player_list[1].cards , "alive DEL JUGADOR 2", player_list[1].name_id)
-        print(player_list[2].cards , "alive DEL JUGADOR 3", player_list[2].name_id)
-        print()
-
+            
+    #MAIN PANEL
+    global playern
+    playern = 1
+    main_panel = tki.Tk()
+    main_panel.title("CUOP v1.0.1")
+    main_panel.geometry("500x200")
+    
     tilecoup = tki.Label(main_panel, text="COUP", font=("Times", 40, "bold"), bg="grey", fg="white")
     tilecoup.pack()
 
