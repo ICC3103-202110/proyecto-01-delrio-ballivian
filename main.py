@@ -61,7 +61,7 @@ def main():
     global playern
     playern = 1
     main_panel = tki.Tk()
-    main_panel.title("CUOP v0.7.5")
+    main_panel.title("CUOP v1.0.0")
     main_panel.geometry("500x200")
     
     #Turns
@@ -139,7 +139,7 @@ def main():
         elif action == "exchange":
             print("Player do: exchange(Ambassador)")
             playern = next_player(many_players, playern)
-            obj_actions.exchange(player_list[playern-2], player_list, playern-2, "exchange",Mazo)
+            obj_actions.exchange1(player_list[playern-2], player_list, playern-2, "ambassador",Mazo)
         elif action == "steal":
             print("Player do: steal(captain)")
             playern = next_player(many_players, playern)

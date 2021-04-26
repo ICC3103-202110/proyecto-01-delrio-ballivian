@@ -91,6 +91,8 @@ class Actions:
     def challenge(self, playercounter, playerdoubt, player_list, playern, name,Mazo):
         print(playercounter.name_id, "EL PLAYER QUE ENTRA A CHALLENGE el counter")
         print(playerdoubt.name_id, "EL PLAYER QUE ENTRA A CHALLENGE el target")
+        
+        print(name, "Name --------------------------------")
         challenge_panel = tki.Tk()
         challenge_panel.geometry("300x300")
         challenge_label = tki.Label(challenge_panel, text="WHO DOUBTS THIS ACTION?", font="Consolas 15")
@@ -98,6 +100,7 @@ class Actions:
         
         
         def action(action, playercounter, playerdoubt, playern,player_list, name,Mazo):
+            
             print(playerdoubt.name_id, "Doubts  ", playercounter.name_id, "with ", action, "\ncard name: ", name)
             print(playerdoubt)
             if playercounter == playerdoubt:
@@ -189,23 +192,10 @@ class Actions:
                                 player_list[playern].coins += 2
                             
                         elif name == "assassin":
-                                self.remove(player, player_list, playern, name,Mazo,False)
+                            self.remove(player, player_list, playern, name,Mazo,False)
                         elif name == "ambassador":
-                            print("estoy en embajador")
-                            dos_cartas = Mazo.give_cards(player)
-                            print("what",dos_cartas,"the heck", player.cards)
-                            cards_total = []
-                            for i in range(len(dos_cartas)):
-                                cards_total.append(dos_cartas[i])
-                            for i in range(len(player.cards)):
-                                cards_total.append(player.cards[i])
-
-                            card1 = int(input("ingrese del 1 al 4 las cartas que quiere mantener"))
-                            card2 = int(input("ingrese del 1 al 4 las cartas que quiere mantener"))
-                            player.cards[0] = cards_total[card1 - 1]
-                            player.cards[0] = cards_total[card2 - 1]
-                            print(player.cards)
-
+                            print("EMBASSADAODOASLPDL;ASL;DAL;SJL;DAJL;SL;DL;ASJL;DASJL;;JKLDJL;ASJL;DL;ASL;JDJL")
+                            self.exchange(player, player_list, playern, name,Mazo)
                         return 0
                     elif action == "challenge_p1":
                         if name in player_list[playern].cards:
@@ -464,11 +454,13 @@ class Actions:
         kill_panel.mainloop()
 
         return True
+    def exchange1(self,player, player_list, playern, name,Mazo):
+        screen_update = Screen_update(player_list)
+        self.challenge(player_list[playern], player_list[playern], player_list, playern, name, Mazo) 
+        
     def exchange(self,player, player_list, playern, name,Mazo):
         
         screen_update = Screen_update(player_list)
-
-        #self.challenge(player_list[playern], player_list[playern], player_list, playern, name, Mazo) ''''''''''''''''''
 
         dos_cartas=Mazo.give_cards(player)
         print(dos_cartas,player.cards)
