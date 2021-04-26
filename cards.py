@@ -9,21 +9,25 @@ class Cards:
         
 
     def give_cards(self, player):
-        #current_cards = len(self.deck)
-        print(self.deck, "DECK ALL")
-        card1 = randint(0, len(self.deck)-1)        
-        print(card1 ,"card1", self.deck[card1])
+        card1 = randint(0, len(self.deck)-1)
         
         card2 = randint(0, len(self.deck)-2)
-        print(card2 ,"card2", self.deck[card2])
-        
-        print(len(self.deck), "LEN deck pre")
         
         
         dos_cartas = [self.deck[card1], self.deck[card2]]
-        
-        self.deck.pop(card1)
-        self.deck.pop(card2)
+        contador1=0
+        contador2=0
+        aux1 = self.deck[card1]
+        aux2 = self.deck[card2]
+        for i in self.deck:
+            if aux1 == i and contador1==0:
+
+                self.deck.remove(i)
+                contador1=contador1+1
+            elif aux2 == i and contador2==0:
+                self.deck.remove(i)
+                contador2 = contador2 + 1
+
 
         print(len(self.deck), "LEN deck post")
         
