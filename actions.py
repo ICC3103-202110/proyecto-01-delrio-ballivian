@@ -334,7 +334,7 @@ class Actions:
 
         return True
 
-    def assassinate(self,player, player_list, playern, name,Mazo): #Añadir deabte de debate
+    def assassinate(self,player, player_list, playern, name,Mazo): 
         
         screen_update = Screen_update(player_list)
         kill_panel = tki.Tk()
@@ -527,7 +527,3 @@ class Actions:
             coup_4.pack()
         coup_panel.mainloop()
         return True
-
-
-    #def golpe(): #SI EL JUGADOR TIENE 10 MONEDAS DEBE REALIZAR ESTA EJECUCION SI O SI
-     #   return 0

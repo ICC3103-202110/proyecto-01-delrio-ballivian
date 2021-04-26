@@ -8,7 +8,7 @@ class Player:
         self.influence = 2
         self.alive = True
         self.cards = []
-        self.show = ["hidden", "hidden"] #Cartas de aqui
+        self.show = ["hidden", "hidden"] 
     def player_state(player_list):
         for i in range(len(player_list)):
             if player_list[i].influence == 0:

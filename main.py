@@ -116,7 +116,7 @@ def main():
                 playern = next_player(many_players, playern)
                 obj_actions.coup(player_list[playern-2], player_list, Mazo)
 
-        #Cartas
+        #Carts
         elif action == "tax":
             print("Player do: tax (Duke)")
             playern = next_player(many_players, playern)
@@ -190,7 +190,7 @@ def main():
         buttom_coup = tki.Button(player_panel, text = " Coup ", width = 5, height = 1, font = "consolas 10", bg = "grey", fg = "white", command = lambda: action("coup"))
         buttom_coup.config(padx=10)
 
-        #Posicionar actions
+        #Pos actions
         buttom_income.grid(row = 3, column = 0, padx = 20)
         buttom_foreingn_aid.grid(row = 3, column = 1, padx = 20)
         buttom_coup.grid(row = 3, column = 2, padx = 20)
@@ -213,13 +213,13 @@ def main():
 
 
 
-        #Posicionar Carts
+        #Pos Carts
         buttom_tax.grid(row = 5, column = 0)
         buttom_assassinate.grid(row = 5, column = 1)
         buttom_exchange.grid(row = 5, column = 2)
         buttom_steal.grid(row = 6, column = 1)
         
-        #INFO EN PANEL JUGADOR
+        #INFO PANEL PLAYER
         info_1 = str("PLAYER 1: \nCoins: " + str(player_list[0].coins) + " \nCards: " + player_list[0].show[0] + " " + player_list[0].show[1])
         info_player_1 = tki.Label(player_panel, text=(info_1), fg="white", bg="black")
         info_player_1.grid(row = 8, column = 0)
